@@ -1,1136 +1,1535 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PRD v2.0 – NusaRide Hybrid Payment Model</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Kautsar Paramahastha — Senior Software Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-:root{
-  --red:#e11d29;--red-d:#c01421;--red-dd:#961019;--red-l:#fff1f2;--red-ll:#ffe0e2;
-  --ink:#111110;--ink2:#222221;--ink3:#373735;
-  --gray:#716f6b;--gray-l:#9d9c98;--gray-ll:#cccbc7;
-  --surface:#f9f9f8;--surface2:#f2f1ef;--border:#e4e3e0;
-  --white:#ffffff;
-  --green:#3b6d11;--green-l:#eaf3de;--green-b:#c0dd97;
-  --amber:#854f0b;--amber-l:#faeeda;--amber-b:#fac775;
-  --blue:#185fa5;--blue-l:#e6f1fb;--blue-b:#85b7eb;
-  --font-d:'Playfair Display',Georgia,serif;
-  --font-b:'Plus Jakarta Sans',sans-serif;
-  --font-m:'JetBrains Mono',monospace;
-  --r-sm:6px;--r-md:10px;--r-lg:16px;--r-xl:24px;
-  --sh-sm:0 1px 3px rgba(0,0,0,.06),0 1px 2px rgba(0,0,0,.04);
-  --sh-md:0 4px 12px rgba(0,0,0,.08),0 2px 4px rgba(0,0,0,.04);
-  --sh-lg:0 8px 24px rgba(0,0,0,.10),0 4px 8px rgba(0,0,0,.06);
-}
-body{font-family:var(--font-b);background:var(--surface);color:var(--ink2);font-size:14px;line-height:1.7}
-::-webkit-scrollbar{width:5px}::-webkit-scrollbar-thumb{background:var(--red);border-radius:3px}
+  :root {
+    --bg: #080c10;
+    --bg2: #0d1117;
+    --bg3: #111820;
+    --surface: #131b24;
+    --surface2: #1a2332;
+    --border: rgba(255,255,255,0.06);
+    --border2: rgba(255,255,255,0.12);
+    --text: #e8edf2;
+    --text2: #8899aa;
+    --text3: #4a5568;
+    --accent: #00d4ff;
+    --accent2: #0099bb;
+    --accent-glow: rgba(0, 212, 255, 0.15);
+    --accent-glow2: rgba(0, 212, 255, 0.05);
+    --amber: #f5a623;
+    --green: #00e5a0;
+    --red: #ff5c5c;
+    --font-display: 'Syne', sans-serif;
+    --font-body: 'DM Sans', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+  }
 
-/* ── COVER ── */
-.cover{min-height:100vh;background:var(--ink);display:flex;flex-direction:column;justify-content:center;padding:80px;position:relative;overflow:hidden}
-.cover-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(225,29,41,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(225,29,41,.06) 1px,transparent 1px);background-size:48px 48px}
-.cover-glow{position:absolute;top:-100px;right:-100px;width:600px;height:600px;background:radial-gradient(circle,rgba(225,29,41,.15) 0%,transparent 65%);pointer-events:none}
-.cover-glow2{position:absolute;bottom:-80px;left:60px;width:400px;height:400px;background:radial-gradient(circle,rgba(255,255,255,.03) 0%,transparent 70%);pointer-events:none}
-.cover-eyebrow{font-family:var(--font-m);font-size:10px;letter-spacing:3px;color:var(--red);text-transform:uppercase;margin-bottom:20px;display:flex;align-items:center;gap:10px}
-.cover-eyebrow::before{content:'';width:28px;height:2px;background:var(--red)}
-.cover h1{font-family:var(--font-d);font-size:clamp(44px,7vw,92px);font-weight:900;line-height:1;color:var(--white);margin-bottom:8px;position:relative;z-index:1}
-.cover h1 em{color:var(--red);font-style:normal;display:block}
-.cover-desc{font-size:17px;color:rgba(255,255,255,.45);max-width:540px;margin-bottom:48px;font-weight:300;position:relative;z-index:1;line-height:1.6}
-.cover-meta{display:flex;gap:36px;flex-wrap:wrap;position:relative;z-index:1}
-.meta-item label{font-family:var(--font-m);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.3);display:block;margin-bottom:4px}
-.meta-item span{font-size:13px;color:rgba(255,255,255,.75);font-weight:500}
-.cover-changelog{position:absolute;right:80px;bottom:80px;z-index:1;display:flex;flex-direction:column;gap:10px}
-.cl-item{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:var(--r-md);padding:10px 16px;font-family:var(--font-m);font-size:11px;color:rgba(255,255,255,.45);display:flex;align-items:center;gap:10px}
-.cl-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
-.v2-badge{display:inline-flex;align-items:center;gap:8px;background:var(--red);color:var(--white);padding:6px 16px;border-radius:20px;font-family:var(--font-m);font-size:11px;font-weight:600;margin-bottom:28px;width:fit-content}
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-/* ── NAV ── */
-.nav{position:sticky;top:0;background:rgba(249,249,248,.95);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);z-index:100;display:flex;align-items:center;padding:0 40px;overflow-x:auto}
-.nav a{font-family:var(--font-m);font-size:11px;color:var(--gray);text-decoration:none;padding:16px 18px;border-bottom:2px solid transparent;white-space:nowrap;transition:all .2s;letter-spacing:.5px}
-.nav a:hover{color:var(--red);border-bottom-color:var(--red)}
-.nav-logo{font-family:var(--font-d);font-size:16px;font-weight:800;color:var(--ink);margin-right:24px;white-space:nowrap}
-.nav-logo span{color:var(--red)}
+  html { scroll-behavior: smooth; }
 
-/* ── LAYOUT ── */
-.page{max-width:1140px;margin:0 auto;padding:0 40px}
-.section{padding:72px 0;border-bottom:1px solid var(--border)}
-.section:last-child{border-bottom:none}
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.7;
+    overflow-x: hidden;
+    cursor: none;
+  }
 
-/* ── TYPOGRAPHY ── */
-.eyebrow{font-family:var(--font-m);font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--red);margin-bottom:10px;display:block}
-h2{font-family:var(--font-d);font-size:clamp(26px,4vw,40px);font-weight:800;color:var(--ink);margin-bottom:10px;line-height:1.15;letter-spacing:-.3px}
-h3{font-size:17px;font-weight:700;color:var(--ink);margin-bottom:8px}
-h4{font-size:12px;font-weight:700;color:var(--red);text-transform:uppercase;letter-spacing:1.5px;font-family:var(--font-m);margin-bottom:10px}
-p{color:var(--gray);line-height:1.7;margin-bottom:14px}
-.lead{font-size:16px;color:var(--ink3);line-height:1.7;max-width:700px;margin-bottom:32px}
+  /* ── NOISE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.5;
+  }
 
-/* ── UTILS ── */
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
-.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
-.divider{height:1px;background:var(--border);margin:36px 0}
-.spacer{height:24px}
+  /* ── CUSTOM CURSOR ── */
+  #cursor-dot {
+    position: fixed;
+    width: 6px; height: 6px;
+    background: var(--accent);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 10001;
+    transform: translate(-50%, -50%);
+    transition: width 0.2s, height 0.2s, background 0.2s;
+  }
+  #cursor-ring {
+    position: fixed;
+    width: 32px; height: 32px;
+    border: 1px solid rgba(0, 212, 255, 0.5);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 10000;
+    transform: translate(-50%, -50%);
+    transition: transform 0.08s ease, width 0.2s, height 0.2s, border-color 0.2s;
+  }
+  body.cursor-hover #cursor-dot { width: 10px; height: 10px; }
+  body.cursor-hover #cursor-ring { width: 48px; height: 48px; border-color: var(--accent); }
 
-/* ── CARDS ── */
-.card{background:var(--white);border:1px solid var(--border);border-radius:var(--r-lg);padding:24px;box-shadow:var(--sh-sm)}
-.card-accent{border-top:3px solid var(--red)}
-.card-accent-green{border-top:3px solid var(--green)}
-.card-accent-blue{border-top:3px solid var(--blue)}
-.card-accent-amber{border-top:3px solid #ba7517}
-.card-dark{background:var(--ink);color:var(--white);border-color:var(--ink)}
+  /* ── SCROLLBAR ── */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--accent2); border-radius: 2px; }
 
-/* ── HIGHLIGHT BOX ── */
-.insight{background:linear-gradient(135deg,rgba(225,29,41,.05),rgba(225,29,41,.02));border:1px solid rgba(225,29,41,.2);border-left:3px solid var(--red);border-radius:0 var(--r-md) var(--r-md) 0;padding:18px 22px;margin:24px 0;font-size:13.5px;color:var(--ink3);line-height:1.6}
-.insight-blue{background:var(--blue-l);border-color:var(--blue);border-left-color:var(--blue)}
-.insight-green{background:var(--green-l);border-color:var(--green);border-left-color:var(--green)}
-.insight-amber{background:var(--amber-l);border-color:#ba7517;border-left-color:#ba7517}
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 clamp(1.5rem, 5vw, 4rem);
+    height: 64px;
+    background: rgba(8,12,16,0.7);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    transition: border-color 0.3s;
+  }
+  nav.scrolled { border-bottom-color: var(--border2); }
+  .nav-logo {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 18px;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--accent); }
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+  .nav-links a {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0.08em;
+    color: var(--text2);
+    text-decoration: none;
+    transition: color 0.2s;
+    position: relative;
+  }
+  .nav-links a::before {
+    content: attr(data-index);
+    color: var(--accent);
+    margin-right: 6px;
+    font-size: 10px;
+    opacity: 0.7;
+  }
+  .nav-links a:hover, .nav-links a.active { color: var(--text); }
+  .nav-links a.active::after {
+    content: '';
+    position: absolute;
+    bottom: -4px; left: 0; right: 0;
+    height: 1px;
+    background: var(--accent);
+    box-shadow: 0 0 8px var(--accent);
+  }
+  .nav-cta {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    border: 1px solid rgba(0,212,255,0.3);
+    padding: 7px 16px;
+    border-radius: 3px;
+    text-decoration: none;
+    transition: background 0.2s, border-color 0.2s, box-shadow 0.2s;
+  }
+  .nav-cta:hover {
+    background: var(--accent-glow);
+    border-color: var(--accent);
+    box-shadow: 0 0 20px var(--accent-glow);
+  }
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    padding: 4px;
+  }
+  .hamburger span {
+    display: block;
+    width: 22px; height: 1.5px;
+    background: var(--text2);
+    transition: all 0.3s;
+  }
+  .mobile-menu {
+    display: none;
+    position: fixed;
+    top: 64px; left: 0; right: 0;
+    background: rgba(8,12,16,0.97);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    padding: 1.5rem;
+    z-index: 999;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu a {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--text2);
+    text-decoration: none;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--border);
+  }
 
-/* ── TAGS ── */
-.tag{display:inline-flex;align-items:center;gap:5px;font-family:var(--font-m);font-size:10px;font-weight:500;padding:3px 10px;border-radius:20px;letter-spacing:.3px}
-.tag-red{background:rgba(225,29,41,.1);color:var(--red-dd);border:1px solid rgba(225,29,41,.25)}
-.tag-green{background:var(--green-l);color:var(--green);border:1px solid var(--green-b)}
-.tag-blue{background:var(--blue-l);color:var(--blue);border:1px solid var(--blue-b)}
-.tag-amber{background:var(--amber-l);color:var(--amber);border:1px solid var(--amber-b)}
-.tag-gray{background:var(--surface2);color:var(--gray);border:1px solid var(--border)}
-.tag-dark{background:var(--ink);color:rgba(255,255,255,.7);border:1px solid rgba(255,255,255,.1)}
+  /* ── SECTIONS ── */
+  section {
+    padding: clamp(5rem, 10vw, 8rem) clamp(1.5rem, 8vw, 10rem);
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .section-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .section-label::after {
+    content: '';
+    flex: 1;
+    max-width: 60px;
+    height: 1px;
+    background: linear-gradient(90deg, var(--accent), transparent);
+  }
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    margin-bottom: 3rem;
+    color: var(--text);
+  }
 
-/* ── STAT CARDS ── */
-.stat{background:var(--white);border:1px solid var(--border);border-radius:var(--r-lg);padding:24px;text-align:center;box-shadow:var(--sh-sm)}
-.stat-num{font-family:var(--font-d);font-size:40px;font-weight:900;color:var(--red);line-height:1;margin-bottom:6px}
-.stat-label{font-size:11px;color:var(--gray);text-transform:uppercase;letter-spacing:1px;font-family:var(--font-m)}
+  /* ── FADE-IN ANIMATION ── */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .fade-up.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .fade-up.delay-1 { transition-delay: 0.1s; }
+  .fade-up.delay-2 { transition-delay: 0.2s; }
+  .fade-up.delay-3 { transition-delay: 0.3s; }
+  .fade-up.delay-4 { transition-delay: 0.4s; }
+  .fade-up.delay-5 { transition-delay: 0.5s; }
 
-/* ── COMPARISON TABLE ── */
-table{width:100%;border-collapse:collapse;font-size:13px}
-thead th{text-align:left;padding:11px 16px;font-family:var(--font-m);font-size:9px;text-transform:uppercase;letter-spacing:1.5px;color:var(--gray);border-bottom:2px solid var(--border);font-weight:600}
-tbody td{padding:13px 16px;border-bottom:1px solid var(--border);color:var(--gray);vertical-align:top}
-tbody tr:hover td{background:rgba(225,29,41,.02)}
-td strong{color:var(--ink2)}
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    max-width: 100%;
+    padding: 0 clamp(1.5rem, 8vw, 10rem);
+  }
+  #hero-canvas {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+  .hero-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0,212,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,212,255,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    z-index: 0;
+    mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 20%, transparent 100%);
+  }
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 900px;
+    padding-top: 64px;
+  }
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    color: var(--green);
+    border: 1px solid rgba(0,229,160,0.25);
+    padding: 6px 14px;
+    border-radius: 100px;
+    margin-bottom: 2rem;
+    background: rgba(0,229,160,0.05);
+  }
+  .hero-badge::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: var(--green);
+    border-radius: 50%;
+    box-shadow: 0 0 8px var(--green);
+    animation: pulse-green 2s infinite;
+  }
+  @keyframes pulse-green {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+  .hero-name {
+    font-family: var(--font-display);
+    font-size: clamp(3rem, 9vw, 7.5rem);
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    line-height: 0.95;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+  }
+  .hero-name .line2 {
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(255,255,255,0.25);
+  }
+  .hero-title {
+    font-family: var(--font-mono);
+    font-size: clamp(14px, 2vw, 18px);
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+    letter-spacing: 0.04em;
+    font-weight: 400;
+  }
+  .hero-title .cursor-blink {
+    display: inline-block;
+    width: 2px;
+    height: 1.1em;
+    background: var(--accent);
+    margin-left: 2px;
+    vertical-align: text-bottom;
+    animation: blink 1s infinite;
+  }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+  .hero-tagline {
+    font-size: clamp(15px, 2vw, 18px);
+    color: var(--text2);
+    max-width: 540px;
+    line-height: 1.7;
+    margin-bottom: 2.5rem;
+    font-weight: 300;
+  }
+  .hero-tagline strong { color: var(--text); font-weight: 500; }
+  .hero-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  .btn-primary {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    color: var(--bg);
+    background: var(--accent);
+    padding: 14px 28px;
+    border-radius: 3px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: box-shadow 0.2s, transform 0.2s;
+    display: inline-block;
+  }
+  .btn-primary:hover {
+    box-shadow: 0 0 30px rgba(0,212,255,0.4);
+    transform: translateY(-2px);
+  }
+  .btn-outline {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    color: var(--text2);
+    border: 1px solid var(--border2);
+    padding: 14px 28px;
+    border-radius: 3px;
+    text-decoration: none;
+    transition: color 0.2s, border-color 0.2s, background 0.2s;
+    display: inline-block;
+  }
+  .btn-outline:hover {
+    color: var(--text);
+    border-color: rgba(255,255,255,0.3);
+    background: rgba(255,255,255,0.03);
+  }
+  .hero-stats {
+    position: absolute;
+    right: clamp(1.5rem, 8vw, 10rem);
+    bottom: 10vh;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    z-index: 2;
+  }
+  .stat-item {
+    text-align: right;
+    border-right: 2px solid var(--accent);
+    padding-right: 1rem;
+  }
+  .stat-number {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1;
+  }
+  .stat-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    color: var(--text3);
+    text-transform: uppercase;
+    margin-top: 4px;
+  }
+  .hero-scroll {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    color: var(--text3);
+    text-transform: uppercase;
+  }
+  .hero-scroll::after {
+    content: '';
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(to bottom, var(--text3), transparent);
+    animation: scroll-line 2s ease-in-out infinite;
+  }
+  @keyframes scroll-line {
+    0% { transform: scaleY(0); transform-origin: top; }
+    50% { transform: scaleY(1); transform-origin: top; }
+    51% { transform: scaleY(1); transform-origin: bottom; }
+    100% { transform: scaleY(0); transform-origin: bottom; }
+  }
 
-/* ── FEATURE LIST ── */
-.flist{list-style:none}
-.flist li{padding:10px 0;border-bottom:1px solid var(--border);font-size:13px;color:var(--gray);display:flex;align-items:flex-start;gap:10px;line-height:1.5}
-.flist li:last-child{border-bottom:none}
-.flist li::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--red);margin-top:6px;flex-shrink:0}
-.flist.green li::before{background:var(--green)}
-.flist.amber li::before{background:#ba7517}
-.flist.blue li::before{background:var(--blue)}
+  /* ── ABOUT ── */
+  #about { border-top: 1px solid var(--border); }
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+  .about-text p {
+    color: var(--text2);
+    font-size: 17px;
+    line-height: 1.8;
+    margin-bottom: 1.25rem;
+    font-weight: 300;
+  }
+  .about-text p strong { color: var(--text); font-weight: 500; }
+  .about-text p .highlight {
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 15px;
+  }
+  .about-terminal {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    font-family: var(--font-mono);
+    font-size: 13px;
+  }
+  .terminal-bar {
+    background: var(--surface2);
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  .terminal-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+  }
+  .dot-red { background: #ff5f57; }
+  .dot-yellow { background: #febc2e; }
+  .dot-green { background: #28c840; }
+  .terminal-title {
+    font-size: 11px;
+    color: var(--text3);
+    margin-left: 8px;
+    letter-spacing: 0.05em;
+  }
+  .terminal-body {
+    padding: 1.25rem 1.5rem;
+    line-height: 2;
+  }
+  .t-line { display: flex; gap: 8px; }
+  .t-prompt { color: var(--accent); }
+  .t-cmd { color: var(--text); }
+  .t-out { color: var(--text2); padding-left: 1rem; }
+  .t-key { color: var(--amber); }
+  .t-val { color: var(--green); }
+  .t-comment { color: var(--text3); }
 
-/* ── TIER CARDS (MERCHANT PLANS) ── */
-.tier{background:var(--white);border:1.5px solid var(--border);border-radius:var(--r-xl);padding:28px;position:relative;overflow:hidden;transition:box-shadow .2s}
-.tier:hover{box-shadow:var(--sh-lg)}
-.tier.featured{border-color:var(--red);box-shadow:0 0 0 1px var(--red),var(--sh-md)}
-.tier-badge{position:absolute;top:16px;right:16px;background:var(--red);color:var(--white);font-family:var(--font-m);font-size:9px;font-weight:700;padding:4px 10px;border-radius:20px;letter-spacing:1px}
-.tier-icon{width:48px;height:48px;border-radius:var(--r-md);display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:16px}
-.tier-name{font-family:var(--font-d);font-size:22px;font-weight:800;color:var(--ink);margin-bottom:4px}
-.tier-tagline{font-size:12px;color:var(--gray);margin-bottom:20px}
-.tier-price{margin-bottom:20px}
-.tier-price .amount{font-family:var(--font-d);font-size:32px;font-weight:800;color:var(--ink);line-height:1}
-.tier-price .amount.red{color:var(--red)}
-.tier-price .per{font-size:12px;color:var(--gray);margin-left:4px}
-.tier-divider{height:1px;background:var(--border);margin:20px 0}
-.tier-features{list-style:none;display:flex;flex-direction:column;gap:10px;margin-bottom:24px}
-.tier-features li{font-size:13px;color:var(--ink3);display:flex;align-items:flex-start;gap:10px;line-height:1.4}
-.tier-features li .check{color:var(--green);font-size:14px;flex-shrink:0;margin-top:1px}
-.tier-features li .cross{color:var(--gray-l);font-size:14px;flex-shrink:0;margin-top:1px}
-.tier-cta{width:100%;padding:12px;border-radius:var(--r-md);font-family:var(--font-b);font-size:14px;font-weight:700;cursor:pointer;border:none;transition:all .15s}
-.tier-cta.primary{background:var(--red);color:var(--white)}
-.tier-cta.primary:hover{background:var(--red-d)}
-.tier-cta.outline{background:transparent;border:1.5px solid var(--border);color:var(--ink)}
-.tier-cta.outline:hover{border-color:var(--gray-ll)}
+  /* ── SKILLS ── */
+  #skills { border-top: 1px solid var(--border); }
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+  .skill-group {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.5rem;
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+  .skill-group:hover {
+    border-color: rgba(0,212,255,0.2);
+    box-shadow: 0 0 30px rgba(0,212,255,0.04);
+  }
+  .skill-group-title {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .skill-group-title::before {
+    content: '';
+    width: 3px; height: 12px;
+    background: var(--accent);
+    border-radius: 2px;
+    box-shadow: 0 0 8px var(--accent);
+  }
+  .skill-bar-item { margin-bottom: 1rem; }
+  .skill-bar-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    color: var(--text2);
+    margin-bottom: 6px;
+  }
+  .skill-bar-label span:last-child {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--text3);
+  }
+  .skill-bar-track {
+    height: 3px;
+    background: var(--surface2);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .skill-bar-fill {
+    height: 100%;
+    border-radius: 2px;
+    background: linear-gradient(90deg, var(--accent2), var(--accent));
+    box-shadow: 0 0 8px rgba(0,212,255,0.3);
+    width: 0;
+    transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .skill-bar-fill.amber { background: linear-gradient(90deg, #c8810a, var(--amber)); box-shadow: 0 0 8px rgba(245,166,35,0.3); }
+  .skill-bar-fill.green { background: linear-gradient(90deg, #00a870, var(--green)); box-shadow: 0 0 8px rgba(0,229,160,0.3); }
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+  .skill-tag {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--text2);
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    padding: 4px 10px;
+    border-radius: 3px;
+    letter-spacing: 0.04em;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .skill-tag:hover { color: var(--accent); border-color: rgba(0,212,255,0.3); }
 
-/* ── FLOW DIAGRAM ── */
-.flow{display:flex;align-items:stretch;gap:0;overflow-x:auto;margin:24px 0}
-.flow-step{flex:1;min-width:150px;padding:20px 16px;background:var(--white);border:1px solid var(--border);border-right:none;position:relative;text-align:center}
-.flow-step:first-child{border-radius:var(--r-md) 0 0 var(--r-md)}
-.flow-step:last-child{border-radius:0 var(--r-md) var(--r-md) 0;border-right:1px solid var(--border)}
-.flow-step::after{content:'→';position:absolute;right:-13px;top:50%;transform:translateY(-50%);color:var(--red);font-size:18px;z-index:1;background:var(--white);padding:2px}
-.flow-step:last-child::after{display:none}
-.flow-icon{font-size:26px;margin-bottom:8px}
-.flow-title{font-size:12px;font-weight:700;color:var(--ink);margin-bottom:4px}
-.flow-desc{font-size:11px;color:var(--gray);line-height:1.4}
-.flow-step.highlight{background:rgba(225,29,41,.04);border-color:rgba(225,29,41,.25)}
+  /* ── EXPERIENCE ── */
+  #experience { border-top: 1px solid var(--border); }
+  .timeline {
+    position: relative;
+    padding-left: 2rem;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 8px; bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--accent), transparent);
+  }
+  .timeline-item {
+    position: relative;
+    margin-bottom: 3.5rem;
+  }
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -2rem;
+    top: 6px;
+    width: 8px; height: 8px;
+    background: var(--accent);
+    border-radius: 50%;
+    box-shadow: 0 0 12px var(--accent);
+    transform: translateX(-3.5px);
+  }
+  .timeline-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 0.5rem;
+  }
+  .timeline-role {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text);
+    letter-spacing: -0.02em;
+  }
+  .timeline-duration {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--text3);
+    letter-spacing: 0.08em;
+    white-space: nowrap;
+    padding-top: 4px;
+  }
+  .timeline-company {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--accent);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .company-badge {
+    font-size: 10px;
+    color: var(--text3);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 2px 8px;
+    border-radius: 100px;
+    letter-spacing: 0.08em;
+  }
+  .timeline-bullets { list-style: none; }
+  .timeline-bullets li {
+    position: relative;
+    padding-left: 1.5rem;
+    color: var(--text2);
+    font-size: 14.5px;
+    margin-bottom: 0.6rem;
+    line-height: 1.7;
+    font-weight: 300;
+  }
+  .timeline-bullets li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-size: 12px;
+  }
+  .timeline-bullets li strong { color: var(--text); font-weight: 500; }
+  .timeline-skills { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 1rem; }
+  .timeline-skill-tag {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--text3);
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    padding: 3px 8px;
+    border-radius: 2px;
+    letter-spacing: 0.05em;
+  }
 
-/* ── RISK MATRIX ── */
-.risk-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--border);border-radius:var(--r-lg);overflow:hidden;margin:20px 0}
-.risk-cell{padding:24px;background:var(--white)}
-.risk-cell h4{margin-bottom:12px}
-.risk-cell ul{list-style:none;display:flex;flex-direction:column;gap:8px}
-.risk-cell ul li{font-size:12px;color:var(--gray);display:flex;align-items:flex-start;gap:7px;line-height:1.4}
-.risk-cell ul li::before{content:'·';font-size:20px;line-height:1;color:var(--gray-ll);flex-shrink:0}
+  /* ── PROJECTS ── */
+  #projects { border-top: 1px solid var(--border); }
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+  .project-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.75rem;
+    transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+  .project-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .project-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(0,212,255,0.2);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 30px rgba(0,212,255,0.05);
+  }
+  .project-card:hover::before { opacity: 1; }
+  .project-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 0.75rem;
+  }
+  .project-icon {
+    font-size: 1.5rem;
+    width: 44px; height: 44px;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .project-links { display: flex; gap: 8px; }
+  .project-link {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--text3);
+    text-decoration: none;
+    border: 1px solid var(--border);
+    padding: 4px 10px;
+    border-radius: 3px;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .project-link:hover { color: var(--accent); border-color: rgba(0,212,255,0.3); }
+  .project-name {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.02em;
+  }
+  .project-desc {
+    font-size: 13.5px;
+    color: var(--text2);
+    line-height: 1.7;
+    margin-bottom: 1.25rem;
+    font-weight: 300;
+  }
+  .project-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .project-tag {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--accent2);
+    border: 1px solid rgba(0,212,255,0.15);
+    background: rgba(0,212,255,0.05);
+    padding: 3px 8px;
+    border-radius: 2px;
+    letter-spacing: 0.04em;
+  }
 
-/* ── MITIGATION CARDS ── */
-.mit-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r-lg);padding:20px;box-shadow:var(--sh-sm);display:flex;gap:14px}
-.mit-icon{width:40px;height:40px;border-radius:var(--r-md);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
-.mit-body h4{font-size:13px;font-weight:700;color:var(--ink);margin-bottom:4px;font-family:var(--font-b);text-transform:none;letter-spacing:0;color:var(--ink)}
-.mit-body p{font-size:12px;color:var(--gray);line-height:1.5;margin-bottom:0}
+  /* ── EDUCATION ── */
+  #education { border-top: 1px solid var(--border); }
+  .edu-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    max-width: 600px;
+  }
+  .edu-icon {
+    width: 60px; height: 60px;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    flex-shrink: 0;
+  }
+  .edu-degree {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+  .edu-school {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--accent);
+    letter-spacing: 0.06em;
+    margin-bottom: 4px;
+  }
+  .edu-year {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--text3);
+  }
 
-/* ── REVENUE MODEL ── */
-.rev-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r-lg);padding:22px;text-align:center;position:relative;overflow:hidden;box-shadow:var(--sh-sm)}
-.rev-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(225,29,41,.03) 0%,transparent 60%)}
-.rev-icon{font-size:28px;margin-bottom:10px}
-.rev-name{font-size:13px;font-weight:700;color:var(--ink);margin-bottom:4px}
-.rev-desc{font-size:11px;color:var(--gray);margin-bottom:14px;line-height:1.4}
-.rev-rate{font-family:var(--font-d);font-size:26px;font-weight:800;color:var(--red)}
-.rev-applies{font-size:10px;color:var(--gray-l);margin-top:4px;font-family:var(--font-m)}
+  /* ── SPEAKING ── */
+  #speaking { border-top: 1px solid var(--border); }
+  .speaking-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; }
+  .speaking-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.5rem;
+    transition: border-color 0.3s;
+  }
+  .speaking-card:hover { border-color: rgba(0,212,255,0.2); }
+  .speaking-type {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--amber);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+  .speaking-title {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 0.4rem;
+  }
+  .speaking-meta {
+    font-size: 13px;
+    color: var(--text2);
+    font-weight: 300;
+  }
 
-/* ── ROADMAP ── */
-.timeline{position:relative;padding-left:32px}
-.timeline::before{content:'';position:absolute;left:11px;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,var(--red),var(--blue),var(--green))}
-.tl-item{position:relative;margin-bottom:28px}
-.tl-dot{position:absolute;left:-32px;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;font-family:var(--font-m);z-index:1}
-.tl-content{background:var(--white);border:1px solid var(--border);border-radius:var(--r-lg);padding:18px 22px;box-shadow:var(--sh-sm)}
-.tl-period{font-family:var(--font-m);font-size:9px;color:var(--gray);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:4px}
-.tl-title{font-size:15px;font-weight:700;color:var(--ink);margin-bottom:8px}
-.tl-tags{display:flex;flex-wrap:wrap;gap:6px}
+  /* ── CONTACT ── */
+  #contact {
+    border-top: 1px solid var(--border);
+    text-align: center;
+    max-width: 700px;
+  }
+  .contact-tagline {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+    color: var(--text);
+  }
+  .contact-tagline span { color: var(--accent); }
+  .contact-sub {
+    font-size: 16px;
+    color: var(--text2);
+    margin-bottom: 3rem;
+    font-weight: 300;
+    line-height: 1.8;
+  }
+  .contact-links {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 3rem;
+  }
+  .contact-link {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    color: var(--text2);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 20px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    transition: color 0.2s, border-color 0.2s, background 0.2s;
+  }
+  .contact-link:hover {
+    color: var(--accent);
+    border-color: rgba(0,212,255,0.3);
+    background: var(--accent-glow2);
+  }
+  .contact-cta {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    letter-spacing: 0.1em;
+    color: var(--bg);
+    background: var(--accent);
+    padding: 18px 48px;
+    border-radius: 3px;
+    text-decoration: none;
+    display: inline-block;
+    transition: box-shadow 0.2s, transform 0.2s;
+    font-weight: 500;
+  }
+  .contact-cta:hover {
+    box-shadow: 0 0 50px rgba(0,212,255,0.4);
+    transform: translateY(-3px);
+  }
 
-/* ── KPI TABLE ── */
-.kpi-row{display:flex;align-items:center;gap:16px;padding:13px 0;border-bottom:1px solid var(--border)}
-.kpi-row:last-child{border-bottom:none}
-.kpi-name{flex:1;font-size:13px;color:var(--gray)}
-.kpi-bar-wrap{flex:2;height:5px;background:var(--border);border-radius:3px;overflow:hidden}
-.kpi-bar{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--red),#f7474e)}
-.kpi-val{font-family:var(--font-m);font-size:11px;color:var(--red);width:80px;text-align:right;font-weight:600}
+  /* ── FOOTER ── */
+  footer {
+    text-align: center;
+    padding: 2rem;
+    border-top: 1px solid var(--border);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--text3);
+    letter-spacing: 0.08em;
+  }
 
-/* ── USER EXPERIENCE FLOWS ── */
-.ux-flow{display:grid;grid-template-columns:1fr;gap:0}
-.ux-step{display:flex;gap:16px;padding:16px 0;border-bottom:1px solid var(--border);align-items:flex-start}
-.ux-step:last-child{border-bottom:none}
-.ux-num{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;font-family:var(--font-m);flex-shrink:0}
-.ux-body{flex:1}
-.ux-title{font-size:13px;font-weight:700;color:var(--ink);margin-bottom:3px}
-.ux-desc{font-size:12px;color:var(--gray);line-height:1.5}
+  /* ── GLOW ORBS ── */
+  .glow-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(100px);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .orb-1 {
+    width: 400px; height: 400px;
+    background: rgba(0,212,255,0.06);
+    top: 10%; right: -10%;
+  }
+  .orb-2 {
+    width: 300px; height: 300px;
+    background: rgba(0,229,160,0.04);
+    bottom: 20%; left: -5%;
+  }
 
-/* ── TRUST SYSTEM ── */
-.trust-layer{background:var(--white);border:1px solid var(--border);border-radius:var(--r-lg);padding:20px 24px;margin-bottom:10px;display:flex;align-items:flex-start;gap:16px;box-shadow:var(--sh-sm)}
-.trust-layer-num{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-family:var(--font-m);font-size:12px;flex-shrink:0}
-.trust-layer-body h4{font-family:var(--font-b);font-size:13px;font-weight:700;color:var(--ink);text-transform:none;letter-spacing:0;margin-bottom:4px}
-.trust-layer-body p{font-size:12px;color:var(--gray);line-height:1.5;margin-bottom:0}
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    .nav-links, .nav-cta { display: none; }
+    .hamburger { display: flex; }
+    .hero-stats { display: none; }
+    .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .skills-grid { grid-template-columns: 1fr; }
+    .projects-grid { grid-template-columns: 1fr; }
+    .speaking-grid { grid-template-columns: 1fr; }
+    .edu-card { flex-direction: column; align-items: flex-start; gap: 1rem; }
+    section { padding: 4rem 1.25rem; }
+    #hero { padding: 0 1.25rem; }
+    .hero-name { font-size: clamp(2.5rem, 14vw, 4rem); }
+    .contact-links { flex-direction: column; align-items: center; }
+  }
 
-/* ── FOOTER ── */
-footer{background:var(--ink);padding:56px 40px;text-align:center}
-footer .logo{font-family:var(--font-d);font-size:28px;font-weight:900;color:var(--white);margin-bottom:8px}
-footer .logo span{color:var(--red)}
-footer p{color:rgba(255,255,255,.35);font-size:12px}
-
-/* ── RESPONSIVE ── */
-@media(max-width:768px){
-  .cover{padding:40px 24px}.cover-changelog{display:none}
-  .page{padding:0 20px}.cover h1{font-size:44px}
-  .grid2,.grid3,.grid4{grid-template-columns:1fr}
-  .risk-grid{grid-template-columns:1fr}.flow{flex-direction:column}
-  .flow-step{border-right:1px solid var(--border);border-bottom:none;border-radius:0}
-  .flow-step:first-child{border-radius:var(--r-md) var(--r-md) 0 0}
-  .flow-step:last-child{border-radius:0 0 var(--r-md) var(--r-md)}
-  .flow-step::after{display:none}
-}
-
-@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
-.section{animation:fadeUp .4s ease both}
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+    .fade-up { opacity: 1; transform: none; }
+  }
 </style>
 </head>
 <body>
 
-<!-- COVER -->
-<div class="cover">
-  <div class="cover-grid"></div>
-  <div class="cover-glow"></div>
-  <div class="cover-glow2"></div>
-
-  <div class="v2-badge">↑ UPDATED · PRD v2.0</div>
-  <div class="cover-eyebrow">Product Requirements Document</div>
-  <h1>NusaRide
-    <em>Hybrid Payment</em>
-  </h1>
-  <p class="cover-desc">Evolusi model bisnis dari single-track payment menuju ekosistem dua jalur — In-App Payment untuk transaksi aman + Listing-Only untuk pertumbuhan merchant yang lebih cepat.</p>
-  <div class="cover-meta">
-    <div class="meta-item"><label>Versi</label><span>PRD v2.0</span></div>
-    <div class="meta-item"><label>Status</label><span>Updated — Hybrid Model</span></div>
-    <div class="meta-item"><label>Tanggal</label><span>Maret 2026</span></div>
-    <div class="meta-item"><label>Perubahan dari</label><span>PRD v1.0 — Single Payment</span></div>
-    <div class="meta-item"><label>Target Go-Live</label><span>Q1 2027</span></div>
-  </div>
-
-  <div class="cover-changelog">
-    <div class="cl-item"><span class="cl-dot" style="background:#e11d29"></span>Hybrid Payment Model — BARU</div>
-    <div class="cl-item"><span class="cl-dot" style="background:#3b82f6"></span>2 Merchant Tier — Listing vs Full</div>
-    <div class="cl-item"><span class="cl-dot" style="background:#10b981"></span>Trust System — Revisi Lengkap</div>
-    <div class="cl-item"><span class="cl-dot" style="background:#f59e0b"></span>Revenue Model — 5 Stream</div>
-    <div class="cl-item"><span class="cl-dot" style="background:#8b5cf6"></span>Risk & Mitigation — Diperluas</div>
-  </div>
-</div>
+<div id="cursor-dot" aria-hidden="true"></div>
+<div id="cursor-ring" aria-hidden="true"></div>
 
 <!-- NAV -->
-<nav class="nav">
-  <div class="nav-logo">Nusa<span>Ride</span></div>
-  <a href="#delta">Perubahan</a>
-  <a href="#hybrid">Model Hybrid</a>
-  <a href="#tiers">Merchant Tier</a>
-  <a href="#ux">User Experience</a>
-  <a href="#trust">Trust System</a>
-  <a href="#revenue">Revenue</a>
-  <a href="#risk">Risiko</a>
-  <a href="#mitigasi">Mitigasi</a>
-  <a href="#roadmap">Roadmap</a>
-  <a href="#kpi">KPI</a>
+<nav id="navbar" role="navigation" aria-label="Main navigation">
+  <a href="#hero" class="nav-logo">KP<span>.</span></a>
+  <ul class="nav-links" role="list">
+    <li><a href="#about" data-index="01">About</a></li>
+    <li><a href="#skills" data-index="02">Skills</a></li>
+    <li><a href="#experience" data-index="03">Experience</a></li>
+    <li><a href="#contact" data-index="04">Contact</a></li>
+  </ul>
+  <a href="mailto:kautsar.paramahastha@gmail.com" class="nav-cta">GET IN TOUCH</a>
+  <button class="hamburger" aria-label="Toggle menu" aria-expanded="false" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
 
-<div class="page">
+<div class="mobile-menu" id="mobileMenu" role="navigation" aria-label="Mobile navigation">
+  <a href="#about" onclick="closeMenu()">01. About</a>
+  <a href="#skills" onclick="closeMenu()">02. Skills</a>
+  <a href="#experience" onclick="closeMenu()">03. Experience</a>  
+  <a href="#contact" onclick="closeMenu()">04. Contact</a>
+  <a href="mailto:kautsar.paramahastha@gmail.com">Get in Touch →</a>
+</div>
 
-<!-- ── SECTION: DELTA / PERUBAHAN ── -->
-<section class="section" id="delta">
-  <span class="eyebrow">01 — Apa yang Berubah dari v1.0</span>
-  <h2>Delta PRD v1.0 → v2.0</h2>
-  <p class="lead">PRD v1.0 mengasumsikan semua merchant wajib menggunakan in-app payment. PRD v2.0 memperkenalkan model hybrid — dua jalur yang berjalan paralel dan saling melengkapi.</p>
+<!-- HERO -->
+<section id="hero" aria-label="Hero introduction">
+  <canvas id="hero-canvas" aria-hidden="true"></canvas>
+  <div class="hero-grid" aria-hidden="true"></div>
+  <div class="glow-orb orb-1" aria-hidden="true"></div>
+  <div class="glow-orb orb-2" aria-hidden="true"></div>
 
-  <div class="insight">
-    💡 <strong>Core Insight:</strong> Hambatan terbesar onboarding merchant di pasar Indonesia bukan soal harga listing, tapi kompleksitas teknis dan ketidaksediaan untuk berbagi data transaksi dengan pihak ketiga. Model hybrid menghapus hambatan ini sekaligus tetap mempertahankan revenue dari merchant yang siap bertransaksi penuh.
+  <div class="hero-content">
+    <h1 class="hero-name" aria-label="Kautsar Paramahastha">
+      <div class="line1">Kautsar</div>
+      <div class="line2">Paramahastha</div>
+    </h1>
+    <div class="hero-title" aria-live="polite">
+      <span id="typewriter-text"></span><span class="cursor-blink" aria-hidden="true"></span>
+    </div>
+    <p class="hero-tagline">
+      I build <strong>distributed systems that handle real money at scale</strong> — 
+      8+ years turning complex fintech infrastructure into reliable, high-throughput platforms 
+      serving tens of millions of users.
+    </p>
+    <div class="hero-actions">
+      <a href="#experience" class="btn-primary">VIEW MY WORK</a>
+      <a href="mailto:kautsar.paramahastha@gmail.com" class="btn-outline">SAY HELLO</a>
+    </div>
   </div>
 
-  <div style="overflow-x:auto;margin-top:24px">
-  <table>
-    <thead>
-      <tr>
-        <th>Aspek</th>
-        <th>PRD v1.0 (Single Payment)</th>
-        <th>PRD v2.0 (Hybrid Model)</th>
-        <th>Impact</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr><td><strong>Model Merchant</strong></td><td>Satu jenis — semua wajib in-app payment</td><td>2 tier: Listing-Only + Full Transaction</td><td><span class="tag tag-green">+ Fleksibilitas</span></td></tr>
-      <tr><td><strong>Onboarding Barrier</strong></td><td>Tinggi — perlu KYC + bank account + payment setup</td><td>Rendah untuk Listing tier — hanya verifikasi identitas</td><td><span class="tag tag-green">+ Kecepatan Growth</span></td></tr>
-      <tr><td><strong>Revenue Stream</strong></td><td>2 stream: komisi + premium</td><td>5 stream: listing fee, featured, komisi, premium, lead data</td><td><span class="tag tag-green">+ Diversifikasi</span></td></tr>
-      <tr><td><strong>Tanggung Jawab Platform</strong></td><td>Penuh — escrow, dispute, refund</td><td>Parsial — hanya untuk Full Transaction tier</td><td><span class="tag tag-blue">Risiko terukur</span></td></tr>
-      <tr><td><strong>User Protection</strong></td><td>Penuh di semua transaksi</td><td>Penuh hanya di Full Transaction tier</td><td><span class="tag tag-amber">Perlu komunikasi jelas</span></td></tr>
-      <tr><td><strong>Target Merchant (6 bln)</strong></td><td>200 merchant aktif</td><td>800 listing + 200 full transaction</td><td><span class="tag tag-green">5× lebih banyak listing</span></td></tr>
-      <tr><td><strong>Kompleksitas Dev</strong></td><td>Medium</td><td>Medium-High (2 flow berbeda)</td><td><span class="tag tag-amber">+30% effort estimasi</span></td></tr>
-    </tbody>
-  </table>
+  <div class="hero-stats" aria-label="Key statistics" role="complementary">
+    <div class="stat-item">
+      <div class="stat-number">120M+</div>
+      <div class="stat-label">Users Served</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number">8+</div>
+      <div class="stat-label">Years Experience</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number">30M+</div>
+      <div class="stat-label">Monthly Active Users</div>
+    </div>
   </div>
+
+  <div class="hero-scroll" aria-hidden="true">scroll</div>
 </section>
 
-<!-- ── SECTION: HYBRID MODEL ── -->
-<section class="section" id="hybrid">
-  <span class="eyebrow">02 — Model Bisnis Hybrid</span>
-  <h2>Dua Jalur, Satu Ekosistem</h2>
-  <p class="lead">NusaRide tidak memaksa semua merchant masuk ke satu model. Sebaliknya, platform menyediakan dua jalur yang jelas — dengan insentif untuk mendorong merchant naik ke tier lebih tinggi secara natural.</p>
-
-  <div class="grid2" style="margin-bottom:32px">
-
-    <!-- LISTING ONLY -->
-    <div class="card card-accent-blue" style="position:relative;overflow:hidden">
-      <div style="position:absolute;top:0;right:0;width:120px;height:120px;background:rgba(24,95,165,.05);border-radius:50%;transform:translate(30px,-30px)"></div>
-      <h4 style="color:var(--blue)">Jalur A</h4>
-      <h3 style="font-size:22px;margin-bottom:6px">Listing-Only</h3>
-      <p style="font-size:13px;margin-bottom:16px">Platform sebagai <strong style="color:var(--ink2)">etalase digital</strong> — merchant tampil, calon penyewa menemukan, kontak terjadi di luar platform.</p>
-      <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:20px">
-        <span class="tag tag-blue">Tampil di pencarian</span>
-        <span class="tag tag-blue">Foto & spesifikasi</span>
-        <span class="tag tag-blue">Lead via WhatsApp/telepon</span>
-        <span class="tag tag-gray">Tanpa payment integration</span>
-        <span class="tag tag-gray">Tanpa komisi transaksi</span>
+<!-- ABOUT -->
+<section id="about" aria-labelledby="about-heading">
+  <div class="section-label" aria-hidden="true">01 — About</div>
+  <div class="about-grid">
+    <div class="about-text fade-up">
+      <h2 id="about-heading" class="section-title">Engineering systems<br>that don't break.</h2>
+      <p>
+        I'm a <strong>Senior Software Engineer</strong> based in Yogyakarta, Indonesia, 
+        currently at <strong>DANA</strong> — the country's leading digital wallet — where I've 
+        spent the last 6 years designing and shipping backend systems that process millions 
+        of financial transactions daily.
+      </p>
+      <p>
+        My core expertise is <span class="highlight">distributed systems, event-driven architecture,</span> and 
+        production reliability at scale. I work primarily in <span class="highlight">Java + Spring Boot + Kafka</span> 
+        on Alibaba Cloud, owning everything from system design to deployment to on-call.
+      </p>
+      <p>
+        Beyond code: I lead engineering squads, mentor junior engineers, write the architecture 
+        docs that teams live by, and recently shipped an <strong>MCP Server for DANA × ChatGPT 
+        integration</strong> — bringing AI-driven interactions to a production fintech environment.
+      </p>
+      <p>
+        <strong>Open to senior/staff engineering roles</strong> in Fintech or AI-adjacent products — 
+        especially teams where backend reliability and scale are first-class problems.
+      </p>
+    </div>
+    <div class="about-terminal fade-up delay-2" role="complementary" aria-label="Technical profile summary">
+      <div class="terminal-bar">
+        <span class="terminal-dot dot-red" aria-hidden="true"></span>
+        <span class="terminal-dot dot-yellow" aria-hidden="true"></span>
+        <span class="terminal-dot dot-green" aria-hidden="true"></span>
+        <span class="terminal-title">kautsar@dana:~$ profile.json</span>
       </div>
-      <div class="divider"></div>
-      <h4 style="color:var(--blue);margin-bottom:10px">Cocok untuk</h4>
-      <ul class="flist blue">
-        <li>Rental kecil/perorangan yang belum siap digital payment</li>
-        <li>Merchant yang sudah punya sistem sendiri dan hanya butuh exposure</li>
-        <li>Trial period — coba dulu sebelum upgrade ke Full Transaction</li>
-        <li>Merchant yang lebih suka negosiasi harga langsung</li>
-      </ul>
-    </div>
-
-    <!-- FULL TRANSACTION -->
-    <div class="card card-accent" style="position:relative;overflow:hidden">
-      <div style="position:absolute;top:0;right:0;width:120px;height:120px;background:rgba(225,29,41,.05);border-radius:50%;transform:translate(30px,-30px)"></div>
-      <h4>Jalur B</h4>
-      <h3 style="font-size:22px;margin-bottom:6px">Full Transaction</h3>
-      <p style="font-size:13px;margin-bottom:16px">Platform sebagai <strong style="color:var(--ink2)">mitra bisnis penuh</strong> — booking, pembayaran, escrow, dan perlindungan semua di dalam NusaRide.</p>
-      <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:20px">
-        <span class="tag tag-red">Booking online</span>
-        <span class="tag tag-red">Payment in-app</span>
-        <span class="tag tag-red">Escrow protection</span>
-        <span class="tag tag-red">Dispute resolution</span>
-        <span class="tag tag-green">Analytics dashboard</span>
-      </div>
-      <div class="divider"></div>
-      <h4 style="margin-bottom:10px">Cocok untuk</h4>
-      <ul class="flist">
-        <li>Rental dengan armada 5+ yang sudah terorganisir</li>
-        <li>Merchant yang ingin booking online 24/7 tanpa perlu aktif di HP</li>
-        <li>Rental yang butuh laporan keuangan dan analitik bisnis</li>
-        <li>Merchant yang mau tampil premium dan lebih dipercaya</li>
-      </ul>
-    </div>
-  </div>
-
-  <!-- HOW IT WORKS FLOW -->
-  <h3 style="margin-bottom:20px">Alur Kerja Kedua Model</h3>
-
-  <div style="margin-bottom:16px">
-    <div style="font-size:11px;font-weight:700;color:var(--blue);font-family:var(--font-m);letter-spacing:1px;margin-bottom:10px">JALUR A — LISTING ONLY</div>
-    <div class="flow">
-      <div class="flow-step"><div class="flow-icon">🔍</div><div class="flow-title">User Cari</div><div class="flow-desc">Filter di platform NusaRide</div></div>
-      <div class="flow-step"><div class="flow-icon">📋</div><div class="flow-title">Lihat Listing</div><div class="flow-desc">Foto, spek, harga estimasi</div></div>
-      <div class="flow-step highlight"><div class="flow-icon">📞</div><div class="flow-title">Kontak Langsung</div><div class="flow-desc">WA / telepon ke merchant</div></div>
-      <div class="flow-step"><div class="flow-icon">🤝</div><div class="flow-title">Negosiasi</div><div class="flow-desc">Harga & syarat disepakati</div></div>
-      <div class="flow-step"><div class="flow-icon">💰</div><div class="flow-title">Bayar Offline</div><div class="flow-desc">Transfer/tunai langsung</div></div>
-      <div class="flow-step"><div class="flow-icon">⭐</div><div class="flow-title">Lapor Review</div><div class="flow-desc">User lapor pengalaman ke platform</div></div>
-    </div>
-  </div>
-
-  <div>
-    <div style="font-size:11px;font-weight:700;color:var(--red);font-family:var(--font-m);letter-spacing:1px;margin-bottom:10px">JALUR B — FULL TRANSACTION</div>
-    <div class="flow">
-      <div class="flow-step"><div class="flow-icon">🔍</div><div class="flow-title">User Cari</div><div class="flow-desc">Filter di platform NusaRide</div></div>
-      <div class="flow-step"><div class="flow-icon">📋</div><div class="flow-title">Lihat Detail</div><div class="flow-desc">Foto, spek, kalender, harga pasti</div></div>
-      <div class="flow-step highlight"><div class="flow-icon">📅</div><div class="flow-title">Booking Online</div><div class="flow-desc">Pilih tanggal, isi data, konfirmasi</div></div>
-      <div class="flow-step highlight"><div class="flow-icon">💳</div><div class="flow-title">Bayar In-App</div><div class="flow-desc">QRIS / GoPay / OVO / VA — escrow</div></div>
-      <div class="flow-step highlight"><div class="flow-icon">🛡️</div><div class="flow-title">Perlindungan</div><div class="flow-desc">Dispute resolution jika ada masalah</div></div>
-      <div class="flow-step"><div class="flow-icon">⭐</div><div class="flow-title">Review Otomatis</div><div class="flow-desc">Diminta platform pasca-selesai</div></div>
-    </div>
-  </div>
-
-  <div class="insight-green" style="margin-top:28px">
-    🔄 <strong>Upgrade Path:</strong> Merchant yang mulai dari Listing-Only dapat upgrade ke Full Transaction kapan saja. Platform menyediakan insentif: merchant yang upgrade di bulan pertama mendapat komisi 0% selama 3 bulan pertama + badge "Early Adopter".
-  </div>
-</section>
-
-<!-- ── SECTION: MERCHANT TIERS ── -->
-<section class="section" id="tiers">
-  <span class="eyebrow">03 — Merchant Tier & Pricing</span>
-  <h2>Paket untuk Setiap Merchant</h2>
-  <p class="lead">Tiga tingkat paket yang dirancang agar setiap merchant — dari rental perorangan hingga chain — menemukan tempat yang tepat di ekosistem NusaRide.</p>
-
-  <div class="grid3" style="margin-bottom:32px">
-
-    <!-- FREE LISTING -->
-    <div class="tier">
-      <div class="tier-icon" style="background:var(--surface2)">📋</div>
-      <div class="tier-name">Listing Gratis</div>
-      <div class="tier-tagline">Coba dulu, tanpa risiko</div>
-      <div class="tier-price">
-        <div class="amount">Rp 0</div>
-        <span style="font-size:12px;color:var(--gray)">selamanya · maks. 3 unit</span>
-      </div>
-      <div class="tier-divider"></div>
-      <ul class="tier-features">
-        <li><span class="check">✓</span> Tampil di hasil pencarian</li>
-        <li><span class="check">✓</span> Hingga 3 unit kendaraan</li>
-        <li><span class="check">✓</span> 5 foto per unit</li>
-        <li><span class="check">✓</span> Nomor WA/telepon terlihat user</li>
-        <li><span class="check">✓</span> Badge Verifikasi Identitas</li>
-        <li><span class="check">✓</span> Lead counter (berapa yang klik)</li>
-        <li><span class="cross">✗</span> Booking & payment in-app</li>
-        <li><span class="cross">✗</span> Analytics dashboard</li>
-        <li><span class="cross">✗</span> Featured placement</li>
-        <li><span class="cross">✗</span> Priority support</li>
-      </ul>
-      <button class="tier-cta outline">Daftar Gratis</button>
-    </div>
-
-    <!-- LISTING PRO -->
-    <div class="tier featured">
-      <div class="tier-badge">PALING POPULER</div>
-      <div class="tier-icon" style="background:var(--red-l)">⭐</div>
-      <div class="tier-name">Listing Pro</div>
-      <div class="tier-tagline">Untuk rental yang serius tumbuh</div>
-      <div class="tier-price">
-        <div class="amount red">Rp 149rb</div>
-        <span class="per">/ bulan</span>
-        <div style="font-size:11px;color:var(--gray);margin-top:4px">atau Rp 1,2jt / tahun (hemat 33%)</div>
-      </div>
-      <div class="tier-divider"></div>
-      <ul class="tier-features">
-        <li><span class="check">✓</span> Semua fitur Listing Gratis</li>
-        <li><span class="check">✓</span> Tidak terbatas unit kendaraan</li>
-        <li><span class="check">✓</span> Hingga 15 foto per unit</li>
-        <li><span class="check">✓</span> Badge "Merchant Pro" di listing</li>
-        <li><span class="check">✓</span> Analytics: klik, lead, konversi estimasi</li>
-        <li><span class="check">✓</span> Prioritas tampil vs Listing Gratis</li>
-        <li><span class="check">✓</span> 1× Featured slot per bulan</li>
-        <li><span class="check">✓</span> Email support prioritas</li>
-        <li><span class="cross">✗</span> Booking & payment in-app</li>
-        <li><span class="cross">✗</span> Escrow & dispute protection</li>
-      </ul>
-      <button class="tier-cta primary">Mulai Listing Pro</button>
-    </div>
-
-    <!-- FULL TRANSACTION -->
-    <div class="tier" style="background:var(--ink);border-color:var(--ink3)">
-      <div class="tier-icon" style="background:rgba(225,29,41,.2)">🔒</div>
-      <div class="tier-name" style="color:var(--white)">Full Transaction</div>
-      <div class="tier-tagline" style="color:rgba(255,255,255,.45)">Transaksi aman, bisnis terstandar</div>
-      <div class="tier-price">
-        <div class="amount" style="color:var(--red)">8–12%</div>
-        <span class="per" style="color:rgba(255,255,255,.4)">komisi per transaksi</span>
-        <div style="font-size:11px;color:rgba(255,255,255,.3);margin-top:4px">+ Rp 0 biaya listing bulanan</div>
-      </div>
-      <div class="tier-divider" style="background:rgba(255,255,255,.1)"></div>
-      <ul class="tier-features" style="color:rgba(255,255,255,.7)">
-        <li><span class="check">✓</span> Semua fitur Listing Pro</li>
-        <li><span class="check">✓</span> Booking online real-time</li>
-        <li><span class="check">✓</span> In-app payment (QRIS, GoPay, dll)</li>
-        <li><span class="check">✓</span> Sistem escrow & perlindungan</li>
-        <li><span class="check">✓</span> Dispute resolution oleh platform</li>
-        <li><span class="check">✓</span> Analytics booking & keuangan penuh</li>
-        <li><span class="check">✓</span> Dashboard merchant lengkap</li>
-        <li><span class="check">✓</span> Laporan payout otomatis</li>
-        <li><span class="check">✓</span> Badge "Transaksi Aman" di listing</li>
-        <li><span class="check">✓</span> Dedicated onboarding support</li>
-      </ul>
-      <button class="tier-cta primary">Aktifkan Full Transaction</button>
-    </div>
-  </div>
-
-  <!-- COMPARISON TABLE -->
-  <h3 style="margin-bottom:16px">Perbandingan Fitur Lengkap</h3>
-  <div style="overflow-x:auto">
-  <table>
-    <thead>
-      <tr>
-        <th style="width:35%">Fitur</th>
-        <th>Listing Gratis</th>
-        <th>Listing Pro</th>
-        <th>Full Transaction</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr><td><strong>Tampil di pencarian</strong></td><td><span class="tag tag-green">✓ Ya</span></td><td><span class="tag tag-green">✓ Prioritas</span></td><td><span class="tag tag-green">✓ Tertinggi</span></td></tr>
-      <tr><td><strong>Jumlah unit kendaraan</strong></td><td>Maks. 3</td><td>Tidak terbatas</td><td>Tidak terbatas</td></tr>
-      <tr><td><strong>Foto per unit</strong></td><td>5 foto</td><td>15 foto</td><td>15 foto + video</td></tr>
-      <tr><td><strong>Booking & payment in-app</strong></td><td><span class="tag tag-gray">✗ Tidak</span></td><td><span class="tag tag-gray">✗ Tidak</span></td><td><span class="tag tag-green">✓ Ya</span></td></tr>
-      <tr><td><strong>Escrow & perlindungan transaksi</strong></td><td><span class="tag tag-gray">✗</span></td><td><span class="tag tag-gray">✗</span></td><td><span class="tag tag-green">✓ Ya</span></td></tr>
-      <tr><td><strong>Komisi transaksi</strong></td><td>0%</td><td>0%</td><td>8–12%</td></tr>
-      <tr><td><strong>Biaya bulanan</strong></td><td>Gratis</td><td>Rp 149rb/bln</td><td>Gratis</td></tr>
-      <tr><td><strong>Analytics lead & klik</strong></td><td>Basic</td><td>Lengkap</td><td>Lengkap + booking</td></tr>
-      <tr><td><strong>Badge kepercayaan</strong></td><td>Verified</td><td>Merchant Pro</td><td>Transaksi Aman</td></tr>
-      <tr><td><strong>Featured placement</strong></td><td>✗</td><td>1× gratis/bulan</td><td>Priority queue</td></tr>
-      <tr><td><strong>KYC yang dibutuhkan</strong></td><td>KTP saja</td><td>KTP + STNK</td><td>KTP + STNK + Rekening bank</td></tr>
-    </tbody>
-  </table>
-  </div>
-</section>
-
-<!-- ── SECTION: USER EXPERIENCE ── -->
-<section class="section" id="ux">
-  <span class="eyebrow">04 — Pengalaman Pengguna</span>
-  <h2>UX untuk Setiap Skenario</h2>
-  <p class="lead">Tantangan terbesar model hybrid adalah konsistensi pengalaman user. Desain harus memastikan user selalu tahu mereka sedang berinteraksi dengan tipe merchant yang mana.</p>
-
-  <div class="grid2" style="margin-bottom:32px">
-
-    <!-- UX untuk user menemukan listing-only merchant -->
-    <div class="card card-accent-blue">
-      <h4 style="color:var(--blue)">Listing-Only Merchant — UI Cues</h4>
-      <div class="ux-flow">
-        <div class="ux-step">
-          <div class="ux-num" style="background:var(--blue-l);color:var(--blue)">1</div>
-          <div class="ux-body">
-            <div class="ux-title">Badge "Hubungi Langsung" pada listing card</div>
-            <div class="ux-desc">Ikon telepon/WA berwarna biru pada card — membedakan secara visual dari listing yang bisa di-booking online.</div>
-          </div>
-        </div>
-        <div class="ux-step">
-          <div class="ux-num" style="background:var(--blue-l);color:var(--blue)">2</div>
-          <div class="ux-body">
-            <div class="ux-title">Halaman detail: CTA "Hubungi Merchant" bukan "Pesan"</div>
-            <div class="ux-desc">Tombol utama menampilkan nomor WA/telepon. Harga ditampilkan sebagai estimasi dengan catatan "harga dapat berubah sesuai negosiasi".</div>
-          </div>
-        </div>
-        <div class="ux-step">
-          <div class="ux-num" style="background:var(--blue-l);color:var(--blue)">3</div>
-          <div class="ux-body">
-            <div class="ux-title">Disclosure box yang jelas</div>
-            <div class="ux-desc">Box kuning: "⚠️ Transaksi dengan merchant ini dilakukan di luar platform NusaRide. NusaRide tidak bertanggung jawab atas sengketa yang terjadi."</div>
-          </div>
-        </div>
-        <div class="ux-step">
-          <div class="ux-num" style="background:var(--blue-l);color:var(--blue)">4</div>
-          <div class="ux-body">
-            <div class="ux-title">Post-transaction review via form ringkas</div>
-            <div class="ux-desc">User bisa lapor pengalaman via link pendek (tidak perlu akun) — rating bintang + komentar singkat. Diverifikasi oleh timestamp WhatsApp/call log.</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- UX untuk user menemukan full-transaction merchant -->
-    <div class="card card-accent">
-      <h4>Full Transaction Merchant — UI Cues</h4>
-      <div class="ux-flow">
-        <div class="ux-step">
-          <div class="ux-num" style="background:var(--red-l);color:var(--red)">1</div>
-          <div class="ux-body">
-            <div class="ux-title">Badge "Transaksi Aman 🔒" pada listing card</div>
-            <div class="ux-desc">Shield merah di pojok kiri bawah card. Tooltip: "Booking & pembayaran dilindungi oleh NusaRide".</div>
-          </div>
-        </div>
-        <div class="ux-step">
-          <div class="ux-num" style="background:var(--red-l);color:var(--red)">2</div>
-          <div class="ux-body">
-            <div class="ux-title">Kalender ketersediaan real-time</div>
-            <div class="ux-desc">Tanggal tersedia/terisi langsung dari sistem — user bisa pilih tanggal dan langsung checkout tanpa perlu konfirmasi manual.</div>
-          </div>
-        </div>
-        <div class="ux-step">
-          <div class="ux-num" style="background:var(--red-l);color:var(--red)">3</div>
-          <div class="ux-body">
-            <div class="ux-title">Harga transparan + breakdown lengkap</div>
-            <div class="ux-desc">Harga fix, tidak ada negosiasi. Breakdown: sewa + driver fee + asuransi + service fee — total langsung terlihat sebelum bayar.</div>
-          </div>
-        </div>
-        <div class="ux-step">
-          <div class="ux-num" style="background:var(--red-l);color:var(--red)">4</div>
-          <div class="ux-body">
-            <div class="ux-title">Konfirmasi booking otomatis + escrow aktif</div>
-            <div class="ux-desc">Setelah bayar, user terima e-voucher + nomor booking. Dana ditahan di escrow hingga perjalanan selesai.</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Search Result Differentiation -->
-  <div class="card" style="margin-bottom:20px">
-    <h4 style="margin-bottom:16px">Search Result — Diferensiasi Visual</h4>
-    <div style="background:var(--surface);border-radius:var(--r-lg);padding:20px">
-
-      <!-- Listing Only Card Preview -->
-      <div style="background:var(--white);border:1px solid var(--border);border-radius:var(--r-md);padding:16px;margin-bottom:10px;display:flex;gap:16px;align-items:center;box-shadow:var(--sh-sm)">
-        <div style="width:80px;height:56px;background:linear-gradient(135deg,#1a3a5f,#0d2444);border-radius:var(--r-sm);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:24px">🚗</div>
-        <div style="flex:1">
-          <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
-            <span style="font-size:13px;font-weight:700;color:var(--ink)">Toyota Avanza 2021</span>
-            <span class="tag tag-blue" style="font-size:9px">📞 Hubungi Langsung</span>
-          </div>
-          <div style="font-size:11px;color:var(--gray)">Bali Rent · ★ 4.6 (32 ulasan) · Verified</div>
-        </div>
-        <div style="text-align:right;flex-shrink:0">
-          <div style="font-family:var(--font-d);font-size:18px;font-weight:800;color:var(--ink)">~Rp 300rb</div>
-          <div style="font-size:10px;color:var(--gray)">estimasi/hari</div>
-          <div style="margin-top:6px"><button style="background:var(--blue-l);color:var(--blue);border:1px solid var(--blue-b);border-radius:var(--r-sm);padding:5px 12px;font-size:11px;font-weight:700;cursor:pointer;font-family:var(--font-b)">💬 WA Merchant</button></div>
-        </div>
-      </div>
-
-      <!-- Full Transaction Card Preview -->
-      <div style="background:var(--white);border:1.5px solid var(--red);border-radius:var(--r-md);padding:16px;display:flex;gap:16px;align-items:center;box-shadow:var(--sh-md)">
-        <div style="width:80px;height:56px;background:linear-gradient(135deg,#3a0a12,#1a0305);border-radius:var(--r-sm);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:24px">🚙</div>
-        <div style="flex:1">
-          <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
-            <span style="font-size:13px;font-weight:700;color:var(--ink)">Toyota Kijang Innova 2022</span>
-            <span class="tag tag-red" style="font-size:9px">🔒 Transaksi Aman</span>
-          </div>
-          <div style="font-size:11px;color:var(--gray)">Bali Rent Pro · ★ 4.9 (128 ulasan) · ✓ Full Verified</div>
-        </div>
-        <div style="text-align:right;flex-shrink:0">
-          <div style="font-family:var(--font-d);font-size:18px;font-weight:800;color:var(--red)">Rp 550rb</div>
-          <div style="font-size:10px;color:var(--gray)">pasti/hari</div>
-          <div style="margin-top:6px"><button style="background:var(--red);color:var(--white);border:none;border-radius:var(--r-sm);padding:5px 12px;font-size:11px;font-weight:700;cursor:pointer;font-family:var(--font-b)">Pesan Sekarang</button></div>
-        </div>
-      </div>
-
-      <div style="font-size:11px;color:var(--gray);text-align:center;margin-top:10px;font-style:italic">Contoh tampilan diferensiasi card di hasil pencarian</div>
-    </div>
-  </div>
-
-  <div class="insight-amber">
-    ⚠️ <strong>UX Critical Rule:</strong> Disclosure tentang tipe transaksi harus ditampilkan MINIMAL di 3 titik: (1) listing card di search result, (2) halaman detail kendaraan, (3) saat user mengklik tombol kontak. Tidak ada ambiguitas yang boleh terjadi — pengguna harus selalu tahu bahwa transaksi tertentu tidak dilindungi platform.
-  </div>
-</section>
-
-<!-- ── SECTION: TRUST SYSTEM ── -->
-<section class="section" id="trust">
-  <span class="eyebrow">05 — Sistem Kepercayaan</span>
-  <h2>Trust Dibangun di Luar Alur Bayar</h2>
-  <p class="lead">Model hybrid hanya bisa sehat jika platform membangun lapisan kepercayaan yang kuat — terutama untuk Listing-Only tier di mana platform tidak punya kontrol atas transaksi.</p>
-
-  <div style="margin-bottom:32px">
-    <div class="trust-layer">
-      <div class="trust-layer-num" style="background:var(--red-l);color:var(--red)">L1</div>
-      <div class="trust-layer-body">
-        <h4>Verifikasi Identitas (KYC Berlapis)</h4>
-        <p>Listing Gratis: KTP saja (manual review 24 jam). Listing Pro: KTP + STNK kendaraan (automated OCR + manual check). Full Transaction: KTP + STNK + verifikasi rekening bank aktif. Merchant yang gagal KYC tidak bisa tampil sama sekali.</p>
-        <div style="display:flex;gap:6px;margin-top:8px"><span class="tag tag-green">Wajib semua tier</span><span class="tag tag-blue">Dukcapil API untuk KTP</span><span class="tag tag-gray">Dokumen disimpan terenkripsi</span></div>
-      </div>
-    </div>
-
-    <div class="trust-layer">
-      <div class="trust-layer-num" style="background:var(--amber-l);color:var(--amber)">L2</div>
-      <div class="trust-layer-body">
-        <h4>Badge Sistem Berjenjang</h4>
-        <p>Sistem badge yang diperbarui otomatis berdasarkan track record — bukan hanya status awal. Badge bisa naik atau turun berdasarkan performa aktual.</p>
-        <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:10px">
-          <div style="background:var(--surface2);border:1px solid var(--border);border-radius:var(--r-md);padding:10px 14px;font-size:12px">
-            <div style="font-weight:700;color:var(--ink);margin-bottom:2px">✓ Verified</div>
-            <div style="color:var(--gray);font-size:11px">KTP terverifikasi</div>
-          </div>
-          <div style="background:var(--blue-l);border:1px solid var(--blue-b);border-radius:var(--r-md);padding:10px 14px;font-size:12px">
-            <div style="font-weight:700;color:var(--blue);margin-bottom:2px">📋 Merchant Pro</div>
-            <div style="color:var(--gray);font-size:11px">KTP + STNK + 10+ review</div>
-          </div>
-          <div style="background:var(--green-l);border:1px solid var(--green-b);border-radius:var(--r-md);padding:10px 14px;font-size:12px">
-            <div style="font-weight:700;color:var(--green);margin-bottom:2px">⭐ Top Merchant</div>
-            <div style="color:var(--gray);font-size:11px">Rating ≥ 4.7 + 50+ review</div>
-          </div>
-          <div style="background:var(--red-l);border:1px solid var(--red-ll);border-radius:var(--r-md);padding:10px 14px;font-size:12px">
-            <div style="font-weight:700;color:var(--red);margin-bottom:2px">🔒 Transaksi Aman</div>
-            <div style="color:var(--gray);font-size:11px">Full Transaction tier aktif</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="trust-layer">
-      <div class="trust-layer-num" style="background:var(--green-l);color:var(--green)">L3</div>
-      <div class="trust-layer-body">
-        <h4>Review Pasca-Transaksi (Termasuk Offline)</h4>
-        <p>Listing-Only: User yang sudah bertransaksi offline bisa submit review via link unik yang dikirim platform (WhatsApp/SMS) setelah user mengklik "Sudah Bertransaksi" di halaman merchant. Review divalidasi dengan bukti minimal (screenshot chat/transfer).</p>
-        <p>Full Transaction: Review otomatis diminta 1 hari setelah booking selesai — terverifikasi 100% karena data transaksi ada di sistem.</p>
-        <div style="display:flex;gap:6px;margin-top:8px"><span class="tag tag-green">Review terverifikasi</span><span class="tag tag-blue">Anti-fake review system</span><span class="tag tag-amber">Merchant bisa balas publik</span></div>
-      </div>
-    </div>
-
-    <div class="trust-layer">
-      <div class="trust-layer-num" style="background:var(--blue-l);color:var(--blue)">L4</div>
-      <div class="trust-layer-body">
-        <h4>Lead Tracking & Accountability</h4>
-        <p>Platform mencatat semua interaksi: berapa kali listing diklik, berapa kali nomor WA dibuka, berapa user yang klik "Sudah Bertransaksi". Data ini digunakan untuk menghitung "Conversion Score" yang ditampilkan ke merchant di dashboard, dan digunakan platform untuk monitoring kesehatan merchant.</p>
-        <p>Merchant yang mendapat laporan negatif berulang (via abuse report) akan di-review admin dan bisa di-suspend bahkan di tier Listing-Only.</p>
-        <div style="display:flex;gap:6px;margin-top:8px"><span class="tag tag-blue">Conversion score</span><span class="tag tag-red">Abuse report system</span><span class="tag tag-gray">Auto-flag untuk review</span></div>
-      </div>
-    </div>
-
-    <div class="trust-layer">
-      <div class="trust-layer-num" style="background:var(--surface2);color:var(--gray)">L5</div>
-      <div class="trust-layer-body">
-        <h4>Upgrade Incentive — Mendorong ke Full Transaction</h4>
-        <p>Listing-Only merchant yang sudah punya 20+ review positif dan rating ≥ 4.5 akan menerima notifikasi otomatis: "Upgrade ke Full Transaction dan tingkatkan kepercayaan — booking tanpa WA-WA dulu." Merchant dengan badge Top Merchant mendapat komisi 8% (vs standar 12%) untuk 3 bulan pertama upgrade.</p>
-        <div style="display:flex;gap:6px;margin-top:8px"><span class="tag tag-green">Auto-invite upgrade</span><span class="tag tag-red">Diskon komisi 3 bulan</span></div>
+      <div class="terminal-body">
+        <div class="t-line"><span class="t-prompt">$</span><span class="t-cmd">cat profile.json</span></div>
+        <div class="t-line"><span class="t-out">{</span></div>
+        <div class="t-line"><span class="t-out">&nbsp;&nbsp;<span class="t-key">"role"</span>: <span class="t-val">"Senior SWE"</span>,</span></div>
+        <div class="t-line"><span class="t-out">&nbsp;&nbsp;<span class="t-key">"experience"</span>: <span class="t-val">"8+ years"</span>,</span></div>
+        <div class="t-line"><span class="t-out">&nbsp;&nbsp;<span class="t-key">"current"</span>: <span class="t-val">"DANA Indonesia"</span>,</span></div>
+        <div class="t-line"><span class="t-out">&nbsp;&nbsp;<span class="t-key">"users"</span>: <span class="t-val">"120M+"</span>,</span></div>
+        <div class="t-line"><span class="t-out">&nbsp;&nbsp;<span class="t-key">"mau"</span>: <span class="t-val">"30M+"</span>,</span></div>
+        <div class="t-line"><span class="t-out">&nbsp;&nbsp;<span class="t-key">"stack"</span>: [</span></div>
+        <div class="t-line"><span class="t-out">&nbsp;&nbsp;&nbsp;&nbsp;<span class="t-val">"Java"</span>, <span class="t-val">"Kafka"</span>, <span class="t-val">"Spring"</span>,</span></div>
+        <div class="t-line"><span class="t-out">&nbsp;&nbsp;&nbsp;&nbsp;<span class="t-val">"MySQL"</span>, <span class="t-val">"Alibaba Cloud"</span></span></div>
+        <div class="t-line"><span class="t-out">&nbsp;&nbsp;],</span></div>
+        <div class="t-line"><span class="t-out">&nbsp;&nbsp;<span class="t-key">"location"</span>: <span class="t-val">"Yogyakarta 🇮🇩"</span>,</span></div>
+        <div class="t-line"><span class="t-out">&nbsp;&nbsp;<span class="t-key">"relocation"</span>: <span class="t-val">true</span>,</span></div>
+        <div class="t-line"><span class="t-out">&nbsp;&nbsp;<span class="t-key">"status"</span>: <span class="t-val">"open_to_work"</span> <span class="t-comment">// 🟢</span></span></div>
+        <div class="t-line"><span class="t-out">}</span></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ── SECTION: REVENUE ── -->
-<section class="section" id="revenue">
-  <span class="eyebrow">06 — Model Revenue</span>
-  <h2>Lima Stream Pendapatan</h2>
-  <p class="lead">Model hybrid membuka lebih banyak jalur monetisasi. Tidak lagi bergantung penuh pada komisi transaksi — yang membutuhkan volume besar untuk meaningful revenue.</p>
-
-  <div class="grid4" style="margin-bottom:32px">
-    <div class="rev-card">
-      <div class="rev-icon">📋</div>
-      <div class="rev-name">Listing Pro Fee</div>
-      <div class="rev-desc">Subscription bulanan untuk merchant yang ingin unlock fitur lanjutan tanpa in-app payment</div>
-      <div class="rev-rate">Rp 149rb</div>
-      <div class="rev-applies">per merchant/bulan</div>
-    </div>
-    <div class="rev-card">
-      <div class="rev-icon">⭐</div>
-      <div class="rev-name">Featured Placement</div>
-      <div class="rev-desc">Merchant bayar untuk tampil di posisi teratas hasil pencarian kota tertentu</div>
-      <div class="rev-rate">Rp 75rb</div>
-      <div class="rev-applies">per slot/hari</div>
-    </div>
-    <div class="rev-card">
-      <div class="rev-icon">💸</div>
-      <div class="rev-name">Komisi Transaksi</div>
-      <div class="rev-desc">% dari setiap booking yang selesai melalui Full Transaction tier</div>
-      <div class="rev-rate">8–12%</div>
-      <div class="rev-applies">per transaksi berhasil</div>
-    </div>
-    <div class="rev-card">
-      <div class="rev-icon">🛡️</div>
-      <div class="rev-name">Asuransi Add-on</div>
-      <div class="rev-desc">Kerjasama insurtech — proteksi perjalanan opsional untuk user Full Transaction</div>
-      <div class="rev-rate">15–25%</div>
-      <div class="rev-applies">margin dari premi asuransi</div>
-    </div>
-  </div>
-
-  <!-- Revenue Projection -->
-  <div class="card">
-    <h4>Proyeksi Revenue — Hybrid Model vs Single Payment</h4>
-    <div style="overflow-x:auto;margin-top:16px">
-    <table>
-      <thead>
-        <tr>
-          <th>Periode</th>
-          <th>Listing Merchant</th>
-          <th>Full Trans. Merchant</th>
-          <th>Revenue Listing Fee</th>
-          <th>Revenue Featured</th>
-          <th>Revenue Komisi</th>
-          <th style="color:var(--red)">Total Estimasi</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr><td>Q1 2027</td><td>500</td><td>100</td><td>Rp 30jt</td><td>Rp 15jt</td><td>Rp 45jt</td><td style="font-weight:700;color:var(--red)">Rp 90jt</td></tr>
-        <tr><td>Q2 2027</td><td>1.200</td><td>300</td><td>Rp 72jt</td><td>Rp 40jt</td><td>Rp 180jt</td><td style="font-weight:700;color:var(--red)">Rp 292jt</td></tr>
-        <tr><td>Q3 2027</td><td>2.500</td><td>700</td><td>Rp 150jt</td><td>Rp 95jt</td><td>Rp 560jt</td><td style="font-weight:700;color:var(--red)">Rp 805jt</td></tr>
-        <tr><td>Q4 2027</td><td>4.000</td><td>1.200</td><td>Rp 240jt</td><td>Rp 180jt</td><td>Rp 1,2M</td><td style="font-weight:700;color:var(--red)">Rp 1,62M</td></tr>
-      </tbody>
-    </table>
-    </div>
-    <div style="font-size:11px;color:var(--gray);margin-top:10px">⚠️ Proyeksi konservatif. Asumsi: 40% Listing merchant di Listing Pro (Rp 149rb), featured slot rata-rata 2 slot/hari per kota (5 kota aktif), AOV Full Transaction Rp 600rb, komisi rata-rata 10%.</div>
-  </div>
-
-  <div class="insight-green" style="margin-top:20px">
-    💡 <strong>Insight Revenue:</strong> Meski komisi per-transaksi lebih tinggi margin-nya, listing fee memberikan revenue yang lebih <em>predictable</em> dan tidak bergantung musim. Di Q1 yang cenderung sepi, listing fee tetap mengalir. Kombinasi keduanya menciptakan revenue yang jauh lebih stabil.
-  </div>
-</section>
-
-<!-- ── SECTION: RISK ── -->
-<section class="section" id="risk">
-  <span class="eyebrow">07 — Analisis Risiko</span>
-  <h2>Risiko & Dampak</h2>
-  <p class="lead">Model hybrid membawa risiko baru yang tidak ada di model single-payment. Berikut analisis menyeluruh dari semua sisi stakeholder.</p>
-
-  <div class="risk-grid">
-    <div class="risk-cell">
-      <h4 style="color:var(--green)">✓ Keuntungan Platform</h4>
-      <ul>
-        <li>Onboarding merchant jauh lebih cepat — hambatan masuk lebih rendah</li>
-        <li>Revenue diversifikasi — tidak bergantung volume transaksi</li>
-        <li>Pertumbuhan listing lebih cepat → lebih menarik bagi user</li>
-        <li>Tanggung jawab hukum atas transaksi lebih kecil untuk Listing tier</li>
-        <li>Data lead yang berharga untuk sold ke merchant sebagai analytics</li>
-      </ul>
-    </div>
-    <div class="risk-cell">
-      <h4 style="color:var(--green)">✓ Keuntungan Merchant</h4>
-      <ul>
-        <li>Tidak perlu integrasi payment gateway yang kompleks</li>
-        <li>Tidak ada komisi transaksi ke platform</li>
-        <li>Jangkauan online lebih luas tanpa biaya besar</li>
-        <li>Fleksibel dalam negosiasi harga langsung dengan user</li>
-        <li>Bisa coba platform dulu sebelum komit ke Full Transaction</li>
-      </ul>
-    </div>
-    <div class="risk-cell">
-      <h4 style="color:var(--red)">✗ Risiko Platform</h4>
-      <ul>
-        <li>Reputasi platform terdampak jika terjadi penipuan di luar platform</li>
-        <li>Sulit kontrol kualitas layanan — merchant bisa berperilaku buruk</li>
-        <li>Revenue per merchant lebih rendah vs model full-transaction</li>
-        <li>Kompetitor dengan perlindungan penuh bisa lebih menarik bagi user premium</li>
-        <li>Kompleksitas produk meningkat — 2 flow berbeda harus di-maintain</li>
-      </ul>
-    </div>
-    <div class="risk-cell">
-      <h4 style="color:var(--red)">✗ Risiko User</h4>
-      <ul>
-        <li>Tidak ada perlindungan transaksi untuk Listing-Only merchant</li>
-        <li>Pengalaman tidak konsisten antar merchant</li>
-        <li>Potensi penipuan / merchant tidak bertanggung jawab</li>
-        <li>Tidak ada history transaksi terstandar di platform</li>
-        <li>Harga tidak pasti — estimasi bisa berbeda saat kontak langsung</li>
-      </ul>
-    </div>
-  </div>
-
-  <!-- Risk Priority Matrix -->
-  <div class="spacer"></div>
-  <h3 style="margin-bottom:16px">Risk Priority Table</h3>
-  <div style="overflow-x:auto">
-  <table>
-    <thead>
-      <tr><th>Risiko</th><th>Kategori</th><th>Dampak</th><th>Probabilitas</th><th>Prioritas Mitigasi</th></tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><strong>Penipuan oleh merchant Listing-Only</strong></td>
-        <td><span class="tag tag-red">Kepercayaan</span></td>
-        <td><span class="tag tag-red">Sangat Tinggi</span></td>
-        <td><span class="tag tag-amber">Sedang</span></td>
-        <td><span class="tag tag-red">P0 — Mitigasi Segera</span></td>
-      </tr>
-      <tr>
-        <td><strong>Reputasi platform terkenal karena kasus offline</strong></td>
-        <td><span class="tag tag-red">PR/Brand</span></td>
-        <td><span class="tag tag-red">Tinggi</span></td>
-        <td><span class="tag tag-amber">Sedang</span></td>
-        <td><span class="tag tag-red">P0 — Mitigasi Segera</span></td>
-      </tr>
-      <tr>
-        <td><strong>User kebingungan membedakan tipe merchant</strong></td>
-        <td><span class="tag tag-amber">UX</span></td>
-        <td><span class="tag tag-amber">Tinggi</span></td>
-        <td><span class="tag tag-amber">Sedang-Tinggi</span></td>
-        <td><span class="tag tag-amber">P1 — Sebelum Launch</span></td>
-      </tr>
-      <tr>
-        <td><strong>Merchant Listing tidak naik ke Full Transaction</strong></td>
-        <td><span class="tag tag-blue">Bisnis</span></td>
-        <td><span class="tag tag-amber">Sedang</span></td>
-        <td><span class="tag tag-amber">Sedang</span></td>
-        <td><span class="tag tag-amber">P1 — Lifecycle Management</span></td>
-      </tr>
-      <tr>
-        <td><strong>Kompleksitas maintainability 2 flow produk</strong></td>
-        <td><span class="tag tag-blue">Engineering</span></td>
-        <td><span class="tag tag-amber">Sedang</span></td>
-        <td><span class="tag tag-green">Rendah</span></td>
-        <td><span class="tag tag-blue">P2 — Arsitektur Modular</span></td>
-      </tr>
-      <tr>
-        <td><strong>Review palsu untuk merchant Listing-Only</strong></td>
-        <td><span class="tag tag-red">Kepercayaan</span></td>
-        <td><span class="tag tag-amber">Sedang</span></td>
-        <td><span class="tag tag-red">Tinggi</span></td>
-        <td><span class="tag tag-amber">P1 — Sistem Validasi</span></td>
-      </tr>
-    </tbody>
-  </table>
-  </div>
-</section>
-
-<!-- ── SECTION: MITIGASI ── -->
-<section class="section" id="mitigasi">
-  <span class="eyebrow">08 — Strategi Mitigasi</span>
-  <h2>Cara Menjaga Ekosistem Tetap Sehat</h2>
-  <p class="lead">Setiap risiko utama harus punya strategi mitigasi konkret yang bisa diimplementasikan — bukan sekadar disclaimer.</p>
-
-  <div class="grid2" style="gap:12px;margin-bottom:12px">
-    <div class="mit-card">
-      <div class="mit-icon" style="background:var(--red-l)">🛡️</div>
-      <div class="mit-body">
-        <h4>Disclosure Wajib 3 Layer</h4>
-        <p>Setiap listing merchant Listing-Only harus menampilkan disclaimer di listing card, halaman detail, dan saat tombol kontak diklik. Tidak ada cara user bisa "tidak tahu" bahwa transaksi di luar platform.</p>
+<!-- SKILLS -->
+<section id="skills" aria-labelledby="skills-heading">
+  <div class="section-label" aria-hidden="true">02 — Skills</div>
+  <h2 id="skills-heading" class="section-title fade-up">Technical arsenal.</h2>
+  <div class="skills-grid">
+    <div class="skill-group fade-up delay-1">
+      <div class="skill-group-title">Backend & Architecture</div>
+      <div class="skill-bar-item">
+        <div class="skill-bar-label"><span>Java / Spring Boot</span><span>Expert</span></div>
+        <div class="skill-bar-track"><div class="skill-bar-fill" data-width="95"></div></div>
+      </div>
+      <div class="skill-bar-item">
+        <div class="skill-bar-label"><span>Distributed Systems</span><span>Expert</span></div>
+        <div class="skill-bar-track"><div class="skill-bar-fill" data-width="92"></div></div>
+      </div>
+      <div class="skill-bar-item">
+        <div class="skill-bar-label"><span>Apache Kafka</span><span>Advanced</span></div>
+        <div class="skill-bar-track"><div class="skill-bar-fill" data-width="88"></div></div>
+      </div>
+      <div class="skill-bar-item">
+        <div class="skill-bar-label"><span>Microservices</span><span>Expert</span></div>
+        <div class="skill-bar-track"><div class="skill-bar-fill" data-width="90"></div></div>
+      </div>
+      <div class="skill-bar-item">
+        <div class="skill-bar-label"><span>Golang</span><span>Advanced</span></div>
+        <div class="skill-bar-track"><div class="skill-bar-fill" data-width="78"></div></div>
       </div>
     </div>
-    <div class="mit-card">
-      <div class="mit-icon" style="background:var(--amber-l)">📋</div>
-      <div class="mit-body">
-        <h4>KYC Wajib Sebelum Tampil</h4>
-        <p>Zero exception — bahkan Listing Gratis pun wajib verifikasi KTP sebelum listing aktif. Merchant yang belum KYC ditampilkan sebagai "Draft" dan tidak muncul di pencarian publik.</p>
+    <div class="skill-group fade-up delay-2">
+      <div class="skill-group-title">Cloud & DevOps</div>
+      <div class="skill-bar-item">
+        <div class="skill-bar-label"><span>Alibaba Cloud</span><span>Advanced</span></div>
+        <div class="skill-bar-track"><div class="skill-bar-fill amber" data-width="85"></div></div>
+      </div>
+      <div class="skill-bar-item">
+        <div class="skill-bar-label"><span>Docker / CI/CD</span><span>Advanced</span></div>
+        <div class="skill-bar-track"><div class="skill-bar-fill amber" data-width="82"></div></div>
+      </div>
+      <div class="skill-bar-item">
+        <div class="skill-bar-label"><span>Jenkins / Vault</span><span>Proficient</span></div>
+        <div class="skill-bar-track"><div class="skill-bar-fill amber" data-width="75"></div></div>
+      </div>
+      <div class="skill-bar-item">
+        <div class="skill-bar-label"><span>AWS / GCP</span><span>Familiar</span></div>
+        <div class="skill-bar-track"><div class="skill-bar-fill amber" data-width="60"></div></div>
       </div>
     </div>
-    <div class="mit-card">
-      <div class="mit-icon" style="background:var(--green-l)">⭐</div>
-      <div class="mit-body">
-        <h4>Review Offline yang Tervalidasi</h4>
-        <p>User yang mengklik "Sudah Bertransaksi" diminta upload screenshot bukti (chat / transfer). Admin sampling review secara manual. Merchant dengan 3+ laporan negatif masuk antrian review khusus.</p>
+    <div class="skill-group fade-up delay-3">
+      <div class="skill-group-title">Data & Observability</div>
+      <div class="skill-bar-item">
+        <div class="skill-bar-label"><span>MySQL / PostgreSQL</span><span>Advanced</span></div>
+        <div class="skill-bar-track"><div class="skill-bar-fill green" data-width="88"></div></div>
+      </div>
+      <div class="skill-bar-item">
+        <div class="skill-bar-label"><span>Splunk / Kibana</span><span>Advanced</span></div>
+        <div class="skill-bar-track"><div class="skill-bar-fill green" data-width="80"></div></div>
+      </div>
+      <div class="skill-bar-item">
+        <div class="skill-bar-label"><span>Grafana / Alerting</span><span>Proficient</span></div>
+        <div class="skill-bar-track"><div class="skill-bar-fill green" data-width="76"></div></div>
+      </div>
+      <div class="skill-bar-item">
+        <div class="skill-bar-label"><span>MongoDB</span><span>Proficient</span></div>
+        <div class="skill-bar-track"><div class="skill-bar-fill green" data-width="65"></div></div>
       </div>
     </div>
-    <div class="mit-card">
-      <div class="mit-icon" style="background:var(--blue-l)">🚨</div>
-      <div class="mit-body">
-        <h4>Abuse Report & Suspend System</h4>
-        <p>Tombol "Laporkan Merchant" mudah diakses. 3 laporan terkonfirmasi dalam 30 hari → auto-suspend listing + notifikasi admin. Merchant yang di-suspend dapat banding via email.</p>
-      </div>
-    </div>
-    <div class="mit-card">
-      <div class="mit-icon" style="background:var(--surface2)">📊</div>
-      <div class="mit-body">
-        <h4>Health Score Merchant</h4>
-        <p>Setiap merchant memiliki "Merchant Health Score" (0–100) berdasarkan: rating, response rate, laporan negatif, dan kelengkapan profil. Score di bawah 40 → listing diturunkan prioritasnya. Score di bawah 20 → auto-suspend.</p>
-      </div>
-    </div>
-    <div class="mit-card">
-      <div class="mit-icon" style="background:var(--red-l)">🎯</div>
-      <div class="mit-body">
-        <h4>Smart Upgrade Nudge</h4>
-        <p>Platform secara aktif mendorong merchant Listing-Only yang perform baik untuk upgrade ke Full Transaction. Notifikasi otomatis, diskon komisi 3 bulan, dan highlight bahwa merchant Full Transaction mendapat 3× lebih banyak booking.</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="insight">
-    🌏 <strong>Referensi Asia Tenggara:</strong> Model serupa berhasil di OLX (listing-only classifieds), Kaskus FJB, dan Tokopedia di awal berdiri (sebelum full e-commerce). Kunci sukses mereka bukan menghilangkan risiko transaksi offline, tapi membangun <em>komunitas kepercayaan</em> melalui sistem rating yang konsisten dan transparansi identitas merchant.
-  </div>
-</section>
-
-<!-- ── SECTION: ROADMAP ── -->
-<section class="section" id="roadmap">
-  <span class="eyebrow">09 — Updated Roadmap</span>
-  <h2>Rencana Implementasi Hybrid Model</h2>
-
-  <div class="timeline">
-    <div class="tl-item">
-      <div class="tl-dot" style="background:var(--red-l);color:var(--red);border:2px solid var(--red)">M1</div>
-      <div class="tl-content">
-        <div class="tl-period">Bulan 1–2 — Q2 2026</div>
-        <div class="tl-title">Foundation + Hybrid Architecture Decision</div>
-        <p style="font-size:13px;margin-bottom:10px">Update PRD final dengan model hybrid. Rancang database schema untuk mendukung 2 merchant tier. Design UI diferensiasi card. Update system design & Copilot prompts.</p>
-        <div class="tl-tags">
-          <span class="tag tag-red">PRD v2.0 Final</span>
-          <span class="tag tag-red">DB Schema Update</span>
-          <span class="tag tag-red">UI Kit — 2 Card Variants</span>
-          <span class="tag tag-gray">Tech Architecture Update</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="tl-item">
-      <div class="tl-dot" style="background:var(--blue-l);color:var(--blue);border:2px solid var(--blue)">M3</div>
-      <div class="tl-content">
-        <div class="tl-period">Bulan 3–5 — Q3 2026</div>
-        <div class="tl-title">MVP Development — Listing-Only FIRST</div>
-        <p style="font-size:13px;margin-bottom:10px">Build Listing-Only tier dahulu — lebih sederhana, lebih cepat onboarding merchant pilot. Full Transaction menyusul di iterasi kedua.</p>
-        <div class="tl-tags">
-          <span class="tag tag-blue">Listing-Only flow lengkap</span>
-          <span class="tag tag-blue">KYC merchant (KTP)</span>
-          <span class="tag tag-blue">Search & Discovery</span>
-          <span class="tag tag-blue">Trust disclosure UI</span>
-          <span class="tag tag-blue">Lead tracking sistem</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="tl-item">
-      <div class="tl-dot" style="background:var(--green-l);color:var(--green);border:2px solid var(--green)">M5</div>
-      <div class="tl-content">
-        <div class="tl-period">Bulan 5–7 — Q4 2026</div>
-        <div class="tl-title">Full Transaction Layer + Beta</div>
-        <p style="font-size:13px;margin-bottom:10px">Tambahkan in-app payment, escrow, booking system. Beta test dengan 20 merchant Listing-Only yang diundang upgrade ke Full Transaction.</p>
-        <div class="tl-tags">
-          <span class="tag tag-green">In-app payment (Midtrans)</span>
-          <span class="tag tag-green">Booking & escrow system</span>
-          <span class="tag tag-green">Merchant dashboard v2</span>
-          <span class="tag tag-green">Beta: 20 Full Trans. merchant</span>
-          <span class="tag tag-green">Abuse report system</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="tl-item">
-      <div class="tl-dot" style="background:rgba(139,92,246,.2);color:#7c3aed;border:2px solid #7c3aed">M8</div>
-      <div class="tl-content">
-        <div class="tl-period">Bulan 8–9 — Q1 2027</div>
-        <div class="tl-title">Public Launch — Hybrid Full</div>
-        <p style="font-size:13px;margin-bottom:10px">Launch publik dengan kedua tier aktif. Target: 500 Listing merchant + 100 Full Transaction merchant di 5 kota. Kampanye "Coba Gratis" untuk Listing tier.</p>
-        <div class="tl-tags">
-          <span class="tag tag-purple">Public Launch</span>
-          <span class="tag tag-purple">Listing Pro subscription live</span>
-          <span class="tag tag-purple">Featured placement live</span>
-          <span class="tag tag-purple">Upgrade incentive aktif</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="tl-item">
-      <div class="tl-dot" style="background:var(--amber-l);color:var(--amber);border:2px solid #ba7517">M10</div>
-      <div class="tl-content">
-        <div class="tl-period">Bulan 10+ — Q2-Q3 2027</div>
-        <div class="tl-title">Growth & Conversion Optimization</div>
-        <p style="font-size:13px;margin-bottom:10px">Fokus konversi Listing → Full Transaction. Mobile app. Ekspansi ke 10+ kota. Analytics merchant lebih dalam.</p>
-        <div class="tl-tags">
-          <span class="tag tag-amber">Mobile App iOS/Android</span>
-          <span class="tag tag-amber">10+ Kota</span>
-          <span class="tag tag-amber">Upgrade funnel optimization</span>
-          <span class="tag tag-amber">Merchant analytics lanjut</span>
-        </div>
+    <div class="skill-group fade-up delay-4">
+      <div class="skill-group-title">Languages & Other</div>
+      <div class="skill-tags" role="list">
+        <span class="skill-tag" role="listitem">Java</span>
+        <span class="skill-tag" role="listitem">Golang</span>
+        <span class="skill-tag" role="listitem">Python</span>
+        <span class="skill-tag" role="listitem">TypeScript</span>
+        <span class="skill-tag" role="listitem">Ruby</span>
+        <span class="skill-tag" role="listitem">JavaScript</span>
+        <span class="skill-tag" role="listitem">C++</span>
+        <span class="skill-tag" role="listitem">System Design</span>
+        <span class="skill-tag" role="listitem">LLM Integration</span>
+        <span class="skill-tag" role="listitem">MCP Server</span>
+        <span class="skill-tag" role="listitem">Technical Leadership</span>
+        <span class="skill-tag" role="listitem">Mentorship</span>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ── SECTION: KPI ── -->
-<section class="section" id="kpi">
-  <span class="eyebrow">10 — Updated KPI & Success Metrics</span>
-  <h2>Ukuran Kesuksesan Model Hybrid</h2>
+<!-- EXPERIENCE -->
+<section id="experience" aria-labelledby="experience-heading">
+  <div class="section-label" aria-hidden="true">03 — Experience</div>
+  <h2 id="experience-heading" class="section-title fade-up">Where I've built things.</h2>
+  <div class="timeline" role="list">
 
-  <div class="grid2" style="margin-bottom:28px">
-    <div class="card">
-      <h4>North Star Metrics (2 Metrics Baru)</h4>
-      <div style="display:flex;flex-direction:column;gap:12px;margin-top:12px">
-        <div style="padding:16px;background:var(--surface);border-radius:var(--r-md)">
-          <div style="font-family:var(--font-d);font-size:28px;color:var(--red);font-weight:900;line-height:1">GBV</div>
-          <div style="font-size:13px;color:var(--ink2);font-weight:600;margin-top:4px">Gross Booking Value/bulan</div>
-          <div style="font-size:11px;color:var(--gray)">Khusus Full Transaction tier — target Rp 3M/bln di akhir Tahun 1</div>
-        </div>
-        <div style="padding:16px;background:var(--surface);border-radius:var(--r-md)">
-          <div style="font-family:var(--font-d);font-size:28px;color:var(--blue);font-weight:900;line-height:1">GLV</div>
-          <div style="font-size:13px;color:var(--ink2);font-weight:600;margin-top:4px">Gross Lead Value/bulan</div>
-          <div style="font-size:11px;color:var(--gray)">Nilai estimasi lead yang digenerate platform untuk Listing-Only merchant — target 50.000 lead/bln</div>
-        </div>
+    <div class="timeline-item fade-up delay-1" role="listitem">
+      <div class="timeline-header">
+        <div class="timeline-role">Senior Software Development Engineer</div>
+        <div class="timeline-duration">Apr 2020 — Present · 6 yrs</div>
+      </div>
+      <div class="timeline-company">
+        DANA Indonesia
+        <span class="company-badge">Fintech · Digital Wallet</span>
+        <span class="company-badge">Yogyakarta · Hybrid</span>
+      </div>
+      <ul class="timeline-bullets" aria-label="Key achievements at DANA Indonesia">
+        <li>Designed and shipped <strong>high-scale backend microservices</strong> in Java + Spring Boot + Kafka, supporting <strong>30M+ MAU</strong> and processing millions of daily financial transactions in a production fintech environment.</li>
+        <li>Built <strong>MCP Server for DANA × ChatGPT integration</strong> from scratch — enabling secure, AI-driven user interactions with full observability and scalability in production. One of the first AI integrations at scale in Indonesian fintech.</li>
+        <li>Led end-to-end delivery of critical features — from system design and implementation through deployment, monitoring, and production ownership. Authored architecture docs used across engineering teams.</li>
+        <li>Managed and mentored junior engineers: ran 1:1s, owned sprint planning, and drove measurable improvements in team velocity and code quality.</li>
+      </ul>
+      <div class="timeline-skills" role="list" aria-label="Technologies used">
+        <span class="timeline-skill-tag" role="listitem">Java</span>
+        <span class="timeline-skill-tag" role="listitem">Spring Boot</span>
+        <span class="timeline-skill-tag" role="listitem">Apache Kafka</span>
+        <span class="timeline-skill-tag" role="listitem">MySQL</span>
+        <span class="timeline-skill-tag" role="listitem">Alibaba Cloud</span>
+        <span class="timeline-skill-tag" role="listitem">Docker</span>
+        <span class="timeline-skill-tag" role="listitem">MCP</span>
+        <span class="timeline-skill-tag" role="listitem">Splunk</span>
+        <span class="timeline-skill-tag" role="listitem">Grafana</span>
       </div>
     </div>
-    <div class="card">
-      <h4>KPI Tambahan — Hybrid Specific</h4>
-      <div style="margin-top:12px">
-        <div class="kpi-row"><span class="kpi-name">Listing-Only → Full Trans. Upgrade Rate</span><div class="kpi-bar-wrap"><div class="kpi-bar" style="width:25%"></div></div><span class="kpi-val">≥ 15%/6bln</span></div>
-        <div class="kpi-row"><span class="kpi-name">Merchant Health Score Avg.</span><div class="kpi-bar-wrap"><div class="kpi-bar" style="width:75%"></div></div><span class="kpi-val">≥ 75/100</span></div>
-        <div class="kpi-row"><span class="kpi-name">Offline Review Submission Rate</span><div class="kpi-bar-wrap"><div class="kpi-bar" style="width:30%"></div></div><span class="kpi-val">≥ 20%</span></div>
-        <div class="kpi-row"><span class="kpi-name">Disclosure Awareness (user survey)</span><div class="kpi-bar-wrap"><div class="kpi-bar" style="width:85%"></div></div><span class="kpi-val">≥ 90%</span></div>
-        <div class="kpi-row"><span class="kpi-name">Merchant Suspend Rate</span><div class="kpi-bar-wrap"><div class="kpi-bar" style="width:5%;background:linear-gradient(90deg,#a32d2d,#f87171)"></div></div><span class="kpi-val" style="color:#a32d2d">≤ 2%</span></div>
-        <div class="kpi-row"><span class="kpi-name">Listing Pro Churn Rate</span><div class="kpi-bar-wrap"><div class="kpi-bar" style="width:8%;background:linear-gradient(90deg,#a32d2d,#f87171)"></div></div><span class="kpi-val" style="color:#a32d2d">≤ 10%</span></div>
+
+    <div class="timeline-item fade-up delay-2" role="listitem">
+      <div class="timeline-header">
+        <div class="timeline-role">Backend Developer</div>
+        <div class="timeline-duration">May 2019 — Apr 2020 · 1 yr</div>
+      </div>
+      <div class="timeline-company">
+        PrivyID
+        <span class="company-badge">Digital Identity · e-Signature</span>
+      </div>
+      <ul class="timeline-bullets" aria-label="Key achievements at PrivyID">
+        <li>Developed and maintained <strong>microservices-based backend systems</strong> in Ruby on Rails, Go, and PostgreSQL for a secure digital identity and e-signature platform serving enterprise clients.</li>
+        <li>Implemented <strong>CI/CD automation and containerized deployments</strong>, improving release consistency and reducing deployment cycle time.</li>
+        <li>Delivered revenue-impacting features on schedule through close cross-functional collaboration with product, QA, and leadership.</li>
+      </ul>
+      <div class="timeline-skills" role="list" aria-label="Technologies used">
+        <span class="timeline-skill-tag" role="listitem">Ruby on Rails</span>
+        <span class="timeline-skill-tag" role="listitem">Golang</span>
+        <span class="timeline-skill-tag" role="listitem">PostgreSQL</span>
+        <span class="timeline-skill-tag" role="listitem">Docker</span>
+        <span class="timeline-skill-tag" role="listitem">CI/CD</span>
       </div>
     </div>
-  </div>
 
-  <!-- Updated Feature MoSCoW -->
-  <h3 style="margin-bottom:16px">Updated Priority Matrix — Hybrid Features</h3>
-  <div class="risk-grid">
-    <div class="risk-cell">
-      <div class="quadrant-label" style="font-family:var(--font-m);font-size:9px;color:var(--gray);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px">Must Have — MVP</div>
-      <h4 style="color:var(--red)">🔴 Wajib Ada</h4>
-      <ul>
-        <li>2 tipe merchant card dengan UI berbeda</li>
-        <li>Disclosure box 3 layer untuk Listing-Only</li>
-        <li>KYC minimal (KTP) untuk semua merchant sebelum listing aktif</li>
-        <li>Badge "Hubungi Langsung" vs "Transaksi Aman"</li>
-        <li>Lead tracking (klik nomor WA/telepon dicatat)</li>
-        <li>Abuse report button di semua halaman merchant</li>
-        <li>In-app payment untuk Full Transaction tier</li>
+    <div class="timeline-item fade-up delay-3" role="listitem">
+      <div class="timeline-header">
+        <div class="timeline-role">Full Stack Developer</div>
+        <div class="timeline-duration">Sep 2017 — May 2019 · 1 yr 9 mos</div>
+      </div>
+      <div class="timeline-company">
+        PT Docotel Teknologi
+        <span class="company-badge">IT Solutions</span>
+      </div>
+      <ul class="timeline-bullets" aria-label="Key achievements at Docotel">
+        <li>Built an <strong>HR management system from scratch</strong> using React, Node.js, and PostgreSQL — covering core business workflows end-to-end.</li>
+        <li>Designed application architecture and production deployments using <strong>Docker + Nginx</strong> for scalability and maintainability.</li>
       </ul>
+      <div class="timeline-skills" role="list" aria-label="Technologies used">
+        <span class="timeline-skill-tag" role="listitem">React</span>
+        <span class="timeline-skill-tag" role="listitem">Node.js</span>
+        <span class="timeline-skill-tag" role="listitem">PostgreSQL</span>
+        <span class="timeline-skill-tag" role="listitem">Docker</span>
+        <span class="timeline-skill-tag" role="listitem">Nginx</span>
+      </div>
     </div>
-    <div class="risk-cell">
-      <div class="quadrant-label" style="font-family:var(--font-m);font-size:9px;color:var(--gray);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px">Should Have</div>
-      <h4 style="color:#ba7517">🟡 Sangat Direkomendasikan</h4>
-      <ul>
-        <li>Offline review submission (link unik post-transaksi)</li>
-        <li>Merchant Health Score dashboard</li>
-        <li>Auto-upgrade nudge notifikasi</li>
-        <li>Listing Pro subscription billing</li>
-        <li>Featured placement booking system</li>
-        <li>Analytics merchant: klik, lead, estimasi konversi</li>
-      </ul>
-    </div>
-    <div class="risk-cell">
-      <div class="quadrant-label" style="font-family:var(--font-m);font-size:9px;color:var(--gray);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px">Could Have</div>
-      <h4 style="color:var(--blue)">🔵 Bisa Ditambahkan</h4>
-      <ul>
-        <li>AI-powered fake review detection</li>
-        <li>Merchant response time tracking</li>
-        <li>Price comparison tool (listing vs market avg)</li>
-        <li>Merchant "profile completeness" score</li>
-        <li>Smart featured placement recommendation</li>
-      </ul>
-    </div>
-    <div class="risk-cell">
-      <div class="quadrant-label" style="font-family:var(--font-m);font-size:9px;color:var(--gray);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px">Won't Have (Now)</div>
-      <h4 style="color:var(--gray)">⚫ Fase Berikutnya</h4>
-      <ul>
-        <li>Escrow untuk transaksi Listing-Only (terlalu kompleks)</li>
-        <li>Platform-mediated negotiation chat</li>
-        <li>Real-time availability untuk Listing-Only</li>
-        <li>Integrasi POS merchant existing</li>
-      </ul>
-    </div>
-  </div>
 
-  <div class="insight" style="margin-top:24px">
-    📌 <strong>Rekomendasi Akhir:</strong> Launch dengan Listing-Only tier dahulu selama 2 bulan pertama beta. Ini memvalidasi model bisnis dengan risiko engineering yang lebih rendah, membangun massa merchant lebih cepat, dan memberi data nyata tentang berapa persen merchant yang secara natural ingin upgrade ke Full Transaction — sebelum kita invest besar di payment infrastructure.
+    <div class="timeline-item fade-up delay-4" role="listitem">
+      <div class="timeline-header">
+        <div class="timeline-role">Game Developer Intern</div>
+        <div class="timeline-duration">Jun 2017 — Sep 2017 · 4 mos</div>
+      </div>
+      <div class="timeline-company">
+        Gameloft
+        <span class="company-badge">Global Game Studio</span>
+      </div>
+      <ul class="timeline-bullets" aria-label="Key achievements at Gameloft">
+        <li>Built a mini-game project in <strong>C++ and C#</strong> applying algorithms, data structures, and performance-oriented coding practices.</li>
+        <li>Gained hands-on experience with <strong>Unity game engine</strong> and collaborative development workflows in a professional studio setting.</li>
+      </ul>
+      <div class="timeline-skills" role="list" aria-label="Technologies used">
+        <span class="timeline-skill-tag" role="listitem">C++</span>
+        <span class="timeline-skill-tag" role="listitem">C#</span>
+        <span class="timeline-skill-tag" role="listitem">Unity</span>
+      </div>
+    </div>
   </div>
 </section>
 
-</div><!-- end .page -->
-
-<footer>
-  <div class="logo">Nusa<span>Ride</span></div>
-  <p style="margin-bottom:6px">Product Requirements Document v2.0 — Hybrid Payment Model</p>
-  <p>Perubahan major dari PRD v1.0 · Senior Product Design & UIX Designer · Maret 2026</p>
-  <div style="display:flex;justify-content:center;gap:10px;margin-top:16px;flex-wrap:wrap">
-    <span class="tag tag-red" style="border-color:rgba(225,29,41,.3)">Hybrid Model</span>
-    <span class="tag" style="background:rgba(255,255,255,.05);color:rgba(255,255,255,.4);border:1px solid rgba(255,255,255,.1)">Multi-Merchant</span>
-    <span class="tag" style="background:rgba(255,255,255,.05);color:rgba(255,255,255,.4);border:1px solid rgba(255,255,255,.1)">Indonesia</span>
-    <span class="tag" style="background:rgba(255,255,255,.05);color:rgba(255,255,255,.4);border:1px solid rgba(255,255,255,.1)">Trust System</span>
+<!-- SPEAKING & MENTORSHIP -->
+<section id="speaking" aria-labelledby="speaking-heading">
+  <div class="section-label" aria-hidden="true">05 — Mentorship & Speaking</div>
+  <h2 id="speaking-heading" class="section-title fade-up">Beyond the codebase.</h2>
+  <div class="speaking-grid">
+    <div class="speaking-card fade-up delay-1">
+      <div class="speaking-type">Mentorship</div>
+      <div class="speaking-title">Google DSC Mentor</div>
+      <p class="speaking-meta">Universitas Negeri Yogyakarta · 2019<br>Mentored students on building REST APIs with Node.js.</p>
+    </div>
+    <div class="speaking-card fade-up delay-2">
+      <div class="speaking-type">Public Speaking</div>
+      <div class="speaking-title">Glints LiveRoom Speaker</div>
+      <p class="speaking-meta">2021 · Career & Industry<br>Shared real-world experience and career path insights as a Software Engineer to a live audience.</p>
+    </div>
+    <div class="speaking-card fade-up delay-3">
+      <div class="speaking-type">Community</div>
+      <div class="speaking-title">Technology for Synergy (T4S)</div>
+      <p class="speaking-meta">Yogyakarta · Sep 2019 – Mar 2020<br>Active member of a Yogyakarta tech community connecting engineers with industry experts.</p>
+    </div>
   </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education" aria-labelledby="education-heading">
+  <div class="section-label" aria-hidden="true">06 — Education</div>
+  <h2 id="education-heading" class="section-title fade-up">Foundation.</h2>
+  <div class="edu-card fade-up delay-1">
+    <div class="edu-icon" aria-hidden="true">🎓</div>
+    <div>
+      <div class="edu-degree">Bachelor's Degree, Computer Science</div>
+      <div class="edu-school">BINUS University (Bina Nusantara)</div>
+      <div class="edu-year">Jakarta, Indonesia · 2018 – 2023</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" style="margin: 0 auto;" aria-labelledby="contact-heading">
+  <div class="section-label" aria-hidden="true">07 — Contact</div>
+  <h2 id="contact-heading" class="contact-tagline fade-up">Let's build something<br><span>that scales.</span></h2>
+  <p class="contact-sub fade-up delay-1">
+    Open to senior/staff engineering roles in Fintech or AI — especially teams where 
+    backend reliability isn't an afterthought. Based in Yogyakarta, open to relocation.
+  </p>
+  <div class="contact-links fade-up delay-2" role="list">
+    <a href="mailto:kautsar.paramahastha@gmail.com" class="contact-link" role="listitem" aria-label="Send email">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      kautsar.paramahastha@gmail.com
+    </a>
+    <a href="https://linkedin.com/in/paramahastha" class="contact-link" target="_blank" rel="noopener noreferrer" role="listitem" aria-label="LinkedIn profile">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+      linkedin.com/in/paramahastha
+    </a>
+    <a href="https://github.com" class="contact-link" target="_blank" rel="noopener noreferrer" role="listitem" aria-label="GitHub profile">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+      GitHub
+    </a>
+    <a href="tel:+6285747258947" class="contact-link" role="listitem" aria-label="Phone number">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      +62 857 4725 8947
+    </a>
+  </div>
+  <a href="mailto:kautsar.paramahastha@gmail.com" class="contact-cta fade-up delay-3">LET'S WORK TOGETHER →</a>
+</section>
+
+<footer role="contentinfo">
+  <p>© 2025 Kautsar Paramahastha · Built with intention · Yogyakarta, Indonesia</p>
 </footer>
 
+<script>
+// ── CURSOR ──
+const dot = document.getElementById('cursor-dot');
+const ring = document.getElementById('cursor-ring');
+let mx = 0, my = 0, rx = 0, ry = 0;
+
+if (window.matchMedia('(pointer: fine)').matches) {
+  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+  function animateCursor() {
+    rx += (mx - rx) * 0.12;
+    ry += (my - ry) * 0.12;
+    dot.style.left = mx + 'px';
+    dot.style.top = my + 'px';
+    ring.style.left = rx + 'px';
+    ring.style.top = ry + 'px';
+    requestAnimationFrame(animateCursor);
+  }
+  animateCursor();
+  document.querySelectorAll('a, button, .project-card, .skill-group').forEach(el => {
+    el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
+    el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
+  });
+} else {
+  dot.style.display = 'none';
+  ring.style.display = 'none';
+  document.body.style.cursor = 'auto';
+}
+
+// ── HERO CANVAS PARTICLES ──
+const canvas = document.getElementById('hero-canvas');
+const ctx = canvas.getContext('2d');
+let particles = [];
+
+function resize() {
+  canvas.width = canvas.offsetWidth;
+  canvas.height = canvas.offsetHeight;
+}
+resize();
+window.addEventListener('resize', resize);
+
+class Particle {
+  constructor() { this.reset(); }
+  reset() {
+    this.x = Math.random() * canvas.width;
+    this.y = Math.random() * canvas.height;
+    this.vx = (Math.random() - 0.5) * 0.3;
+    this.vy = (Math.random() - 0.5) * 0.3;
+    this.r = Math.random() * 1.5 + 0.5;
+    this.alpha = Math.random() * 0.4 + 0.1;
+  }
+  update() {
+    this.x += this.vx; this.y += this.vy;
+    if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) this.reset();
+  }
+  draw() {
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(0, 212, 255, ${this.alpha})`;
+    ctx.fill();
+  }
+}
+
+for (let i = 0; i < 80; i++) particles.push(new Particle());
+
+function drawConnections() {
+  for (let i = 0; i < particles.length; i++) {
+    for (let j = i + 1; j < particles.length; j++) {
+      const dx = particles[i].x - particles[j].x;
+      const dy = particles[i].y - particles[j].y;
+      const d = Math.sqrt(dx*dx + dy*dy);
+      if (d < 100) {
+        ctx.beginPath();
+        ctx.moveTo(particles[i].x, particles[i].y);
+        ctx.lineTo(particles[j].x, particles[j].y);
+        ctx.strokeStyle = `rgba(0, 212, 255, ${0.06 * (1 - d/100)})`;
+        ctx.lineWidth = 0.5;
+        ctx.stroke();
+      }
+    }
+  }
+}
+
+function animateParticles() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  particles.forEach(p => { p.update(); p.draw(); });
+  drawConnections();
+  requestAnimationFrame(animateParticles);
+}
+animateParticles();
+
+// ── TYPEWRITER ──
+const phrases = [
+  'Senior Software Engineer',
+  'Distributed Systems Builder',
+  'Fintech Infrastructure · 8+ Years',
+  'Java · Kafka · Spring · Cloud'
+];
+let pi = 0, ci = 0, deleting = false;
+const tw = document.getElementById('typewriter-text');
+
+function typewriter() {
+  const current = phrases[pi];
+  if (!deleting) {
+    tw.textContent = current.slice(0, ci + 1);
+    ci++;
+    if (ci === current.length) { deleting = true; setTimeout(typewriter, 2000); return; }
+  } else {
+    tw.textContent = current.slice(0, ci - 1);
+    ci--;
+    if (ci === 0) { deleting = false; pi = (pi + 1) % phrases.length; }
+  }
+  setTimeout(typewriter, deleting ? 40 : 80);
+}
+typewriter();
+
+// ── NAVBAR SCROLL ──
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 50);
+}, { passive: true });
+
+// ── ACTIVE NAV ──
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-links a');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      navLinks.forEach(a => a.classList.remove('active'));
+      const active = document.querySelector(`.nav-links a[href="#${entry.target.id}"]`);
+      if (active) active.classList.add('active');
+    }
+  });
+}, { threshold: 0.4 });
+sections.forEach(s => observer.observe(s));
+
+// ── FADE-IN ON SCROLL ──
+const fadeObserver = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      fadeObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll('.fade-up').forEach(el => fadeObserver.observe(el));
+
+// ── SKILL BARS ANIMATION ──
+const skillObserver = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.querySelectorAll('.skill-bar-fill').forEach(bar => {
+        bar.style.width = bar.dataset.width + '%';
+      });
+      skillObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.3 });
+document.querySelectorAll('.skill-group').forEach(g => skillObserver.observe(g));
+
+// ── MOBILE MENU ──
+function toggleMenu() {
+  const menu = document.getElementById('mobileMenu');
+  const btn = document.querySelector('.hamburger');
+  const isOpen = menu.classList.toggle('open');
+  btn.setAttribute('aria-expanded', isOpen);
+}
+function closeMenu() {
+  document.getElementById('mobileMenu').classList.remove('open');
+  document.querySelector('.hamburger').setAttribute('aria-expanded', 'false');
+}
+
+// ── HERO PARALLAX ──
+window.addEventListener('scroll', () => {
+  const y = window.scrollY;
+  const hero = document.getElementById('hero');
+  if (y < window.innerHeight) {
+    const canvas = document.getElementById('hero-canvas');
+    canvas.style.transform = `translateY(${y * 0.3}px)`;
+  }
+}, { passive: true });
+
+// ── REDUCED MOTION ──
+if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  document.querySelectorAll('.fade-up').forEach(el => el.classList.add('visible'));
+}
+</script>
 </body>
 </html>
